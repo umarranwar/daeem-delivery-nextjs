@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "store": "AlBAik",
+    "title": "7 Piece Chicken Nuggets Meal",
+    "desc": "Spicy and crunchy to perfection includes a bun, fries, and 2 nuggets",
+    "logo": "/images/AlBAaik.png",
+    "bgImg": "/images/albaik03.jpg"
+  },
+  {
+    "id": 2,
+    "store": "HERFY",
+    "title": "7 Piece Chicken Nuggets Meal",
+    "desc": "Spicy and crunchy to perfection includes a bun, fries, and 2 nuggets",
+    "logo": "/images/Herfy_logo.png",
+    "bgImg": "/images/AlBaikpic3.JPG"
+  },
+  {
+    "id": 3,
+    "store": "KFC",
+    "title": "7 Piece Chicken Nuggets Meal",
+    "desc": "Spicy and crunchy to perfection includes a bun, fries, and 2 nuggets",
+    "logo": "/images/KFC_logo.png",
+    "bgImg": "/images/AlBaikpic1.JPG"
+  },
+  {
+    "id": 4,
+    "store": "McDonald's",
+    "title": "7 Piece Chicken Nuggets Meal",
+    "desc": "Spicy and crunchy to perfection includes a bun, fries, and 2 nuggets",
+    "logo": "/images/McDonald's.png",
+    "bgImg": "/images/AlBaikpic1.JPG"
+  }
+]

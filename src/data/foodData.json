@@ -1,0 +1,154 @@
+[
+  {
+    "id": 1,
+    "name": "AlbAik Chicken Fries",
+    "price": 17.50,
+    "desc": "Description AlbAik Chicken Fries",
+    "img": "/images/albaik01.jpg",
+    "store": "AlBAik"
+  },
+  {
+    "id": 2,
+    "name": "Chicken Broast",
+    "price": 40.0,
+    "desc": "Crunchy to perfection includes 2 buns, fries, and 4 garlic sauces",
+    "img": "/images/AlBaikpic1.JPG",
+    "store": "AlBAik"
+  },
+  {
+    "id": 3,
+    "name": "Chicken nuggets",
+    "price": 30.0,
+    "desc": "Crunchy to perfection includes 2 buns, fries, and 4 garlic sauces",
+    "img": "/images/AlBaikpic2.JPG",
+    "store": "AlBAik"
+  },
+  {
+    "id": 4,
+    "name": "Nuggets burger",
+    "price": 50.0,
+    "desc": "Crunchy to perfection includes 2 buns, fries, and 4 garlic sauces",
+    "img": "/images/AlBaikpic3.JPG",
+    "store": "HERFY"
+  },
+  {
+    "id": 6,
+    "name": "Vegetable Pizza",
+    "price": 17.50,
+    "desc": "Description Vegetable Pizza",
+    "img": "/images/food3.jpg",
+    "store": "KFC"
+  },
+  {
+    "id": 7,
+    "name": "KFC Chicken Broast",
+    "price": 17.50,
+    "desc": "Description KFC Chicken Broast",
+    "img": "/images/kfc.jpg",
+    "store": "KFC"
+  },
+  {
+    "id": 8,
+    "name": "AlbAik Chicken Fries",
+    "price": 17.50,
+    "desc": "Description AlbAik Chicken Fries",
+    "img": "/images/albaik01.jpg",
+    "store": "KFC"
+  },
+  {
+    "id": 9,
+    "name": "Chicken Broast",
+    "price": 40.0,
+    "desc": "Crunchy to perfection includes 2 buns, fries, and 4 garlic sauces",
+    "img": "/images/AlBaikpic1.JPG",
+    "store": "KFC"
+  },
+  {
+    "id": 10,
+    "name": "Chicken nuggets",
+    "price": 30.0,
+    "desc": "Crunchy to perfection includes 2 buns, fries, and 4 garlic sauces",
+    "img": "/images/AlBaikpic2.JPG",
+    "store": "KFC"
+  },
+  {
+    "id": 11,
+    "name": "Nuggets burger",
+    "price": 50.0,
+    "desc": "Crunchy to perfection includes 2 buns, fries, and 4 garlic sauces",
+    "img": "/images/AlBaikpic3.JPG",
+    "store": "KFC"
+  },
+  {
+    "id": 12,
+    "name": "Chicken Broast",
+    "price": 40.0,
+    "desc": "Crunchy to perfection includes 2 buns, fries, and 4 garlic sauces",
+    "img": "/images/AlBaikpic1.JPG",
+    "store": "AlBAik"
+  },
+  {
+    "id": 13,
+    "name": "Chicken nuggets",
+    "price": 30.0,
+    "desc": "Crunchy to perfection includes 2 buns, fries, and 4 garlic sauces",
+    "img": "/images/AlBaikpic2.JPG",
+    "store": "AlBAik"
+  },
+  {
+    "id": 14,
+    "name": "Nuggets burger",
+    "price": 50.0,
+    "desc": "Crunchy to perfection includes 2 buns, fries, and 4 garlic sauces",
+    "img": "/images/AlBaikpic3.JPG",
+    "store": "AlBAik"
+  },
+  {
+    "id": 15,
+    "name": "McDonalds Chicken Broast",
+    "price": 27.95,
+    "desc": "Description McDonalds Chicken Broast",
+    "img": "/images/albaik.JPG",
+    "store": "McDonald's"
+  },
+  {
+    "id": 16,
+    "name": "AlbAik Chicken Fries",
+    "price": 17.50,
+    "desc": "Description AlbAik Chicken Fries",
+    "img": "/images/albaik01.jpg",
+    "store": "McDonald's"
+  },
+  {
+    "id": 17,
+    "name": "Special Chicken Rice",
+    "price": 33.0,
+    "desc": "Description Special Chicken Rice with Dry Fruits",
+    "img": "/images/chickenRice.png",
+    "store": "McDonald's"
+  },
+  {
+    "id": 18,
+    "name": "AlbAik Chicken Fries",
+    "price": 17.50,
+    "desc": "Description AlbAik Chicken Fries",
+    "img": "/images/albaik01.jpg",
+    "store": "McDonald's"
+  },
+  {
+    "id": 19,
+    "name": "AlbAik Chicken Fries",
+    "price": 17.50,
+    "desc": "Description AlbAik Chicken Fries",
+    "img": "/images/albaik01.jpg",
+    "store": "HERFY"
+  },
+  {
+    "id": 20,
+    "name": "AlbAik Chicken Fries",
+    "price": 17.50,
+    "desc": "Description AlbAik Chicken Fries",
+    "img": "/images/albaik01.jpg",
+    "store": "HERFY"
+  }
+]
