@@ -65,15 +65,6 @@ const electronics = [
 function Ecommerce() {
   const router = useRouter();
 
-  const slideRight = () => {
-    var slider = document.getElementById("slider");
-    slider.scrollLeft = slider.scrollLeft + 1000;
-  };
-  const slideLeft = () => {
-    var slider = document.getElementById("slider");
-    slider.scrollLeft = slider.scrollLeft - 1000;
-  };
-
   const slideRight02 = () => {
     var slider = document.getElementById("slider02");
     slider.scrollLeft = slider.scrollLeft + 1000;
@@ -90,10 +81,12 @@ function Ecommerce() {
           <h1 className="text-white">Electronics</h1>
         </div>
         <div className="flex mt-3 relative items-center">
-          <FaCircleChevronLeft
-            onClick={slideLeft02}
-            className="size-9 cursor-pointer text-blue-900 z-50"
-          />
+          <button>
+            <FaCircleChevronLeft
+              onClick={slideLeft02}
+              className="size-6 text-blue-900 z-50"
+            />
+          </button>
           <div
             id="slider02"
             className="flex overflow-x-scroll scroll scroll-smooth scrollbar-hide flex-row"
@@ -160,10 +153,12 @@ function Ecommerce() {
               ))}
             </div>
           </div>
-          <FaCircleChevronRight
-            onClick={slideRight02}
-            className="size-9 cursor-pointer text-blue-900 z-50"
-          />
+          <button>
+            <FaCircleChevronRight
+              onClick={slideRight02}
+              className="size-6 text-blue-900 z-50"
+            />
+          </button>
         </div>
       </div>
     </div>

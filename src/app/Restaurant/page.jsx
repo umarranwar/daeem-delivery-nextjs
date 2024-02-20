@@ -53,15 +53,7 @@ export default function Page() {
             </div>
           </Link>
         ))}
-        {/* <div className="w-52 h-52 bg-blue-400"></div>
-        <div className="w-52 h-52 bg-blue-400"></div>
-        <div className="w-52 h-52 bg-blue-400"></div>
-        <div className="w-52 h-52 bg-blue-400"></div>
-        <div className="w-52 h-52 bg-blue-400"></div> */}
       </div>
-      <Link href="/Test">
-        <h1>Go to Test</h1>
-      </Link>
     </div>
   );
 }

@@ -32,80 +32,82 @@ export default function Restaurant() {
   return (
     <div className="bg-gray-100 pt-5">
       <div className="flex my-10 items-center gap-5 justify-between">
-        <div className="w-2/4 px-5 h-96">
+        <div className="w-2/4 h-auto">
           <Image src={banner1} alt="banner" className="w-full h-full" />
         </div>
-        <div className=" w-2/4 px-5 h-96">
+        <div className=" w-2/4 h-auto">
           <Image src={banner2} alt="banner" className="w-full h-full" />
         </div>
       </div>
-      <div className="ml-7 py-1 w-24 flex rounded-full bg-orange-400 items-center justify-center">
-        <h1 className="text-white">Foods</h1>
+      <div className="ml-7 py-1 w-28 flex rounded-full bg-orange-400 items-center justify-center">
+        <h1 className="text-sm text-white">Our Partners</h1>
       </div>
-      <div className="flex p-7 gap-5 flex-row">
-        {storeData.map((item) => (
-          <Link
-            href={`/Restaurant/${item.store}`}
-            key={item.id}
-            className="relative w-2/6 h-[35vh] rounded-xl p-1 bg-white border hover:border-orange-400 ease-in-out duration-300 cursor-pointer shadow-2xl hover:shadow-orange-400 "
-          >
-            <Image
-              src={item.logo}
-              alt="banner"
-              width={100}
-              height={100}
-              className="absolute m-2 w-16 h-16"
-            />
-            <div className="bg-white opacity-90 absolute right-2 top-2 cursor-pointer rounded-full p-1.5">
-              <BiHeart className="size-6 text-blue-900" />
-            </div>
-            <div className="absolute text-white left-3 bottom-3">
-              <p
-                style={{
-                  textShadow: "0px 1px 4px #2a2b2e",
-                }}
-                className="font-bold"
-              >
-                {item.title}
-              </p>
-              <p
-                style={{
-                  textShadow: "0px 1px 4px #2a2b2e",
-                }}
-                className="text-sm font-bold text-white text-stroke w-2/4"
-              >
-                {item.desc}
-              </p>
-            </div>
-            <div>
-              <div className="absolute text-gray-600 right-20 bottom-3 h-7 w-28 px-2 rounded-full items-center flex justify-between flex-row bg-opacity-60 bg-white">
-                <div className="flex">
-                  <span className="font-bold">4.30</span>
-                  <FaStar className="mt-1 ml-1" size={15} color="orange" />
-                </div>
-                <div>
-                  <p>(1.1k)</p>
-                </div>
+      <div className="flex px-5 overflow-x-scroll scroll scroll-smooth scrollbar-hide flex-row">
+        <div className="flex my-5 gap-3">
+          {storeData.map((item) => (
+            <Link
+              href={`/Restaurant/${item.store}`}
+              key={item.id}
+              className="relative w-80 h-52 rounded-xl p-1 bg-white border hover:border-orange-400 ease-in-out duration-300 cursor-pointer shadow-2xl hover:shadow-orange-400 "
+            >
+              <Image
+                src={item.logo}
+                alt="banner"
+                width={100}
+                height={100}
+                className="absolute m-2 w-16 h-16"
+              />
+              <div className="bg-white opacity-90 absolute right-2 top-2 cursor-pointer rounded-full p-1.5">
+                <BiHeart className="size-6 text-blue-900" />
               </div>
-              <button className="absolute rounded-full px-2 h-7 bg-orange-400 text-white bottom-3 right-3">
-                Order
-              </button>
-            </div>
-            <Image
-              src={albaik03}
-              alt="menu"
-              width={300}
-              height={300}
-              className="w-full -z-50 rounded-lg h-full"
-            />
-          </Link>
-        ))}
+              <div className="absolute text-white left-3 bottom-3">
+                <p
+                  style={{
+                    textShadow: "0px 1px 4px #2a2b2e",
+                  }}
+                  className="font-bold"
+                >
+                  {item.title}
+                </p>
+                <p
+                  style={{
+                    textShadow: "0px 1px 4px #2a2b2e",
+                  }}
+                  className="text-sm font-bold text-white text-stroke w-2/4"
+                >
+                  {item.desc}
+                </p>
+              </div>
+              <div>
+                <div className="absolute text-gray-600 right-20 bottom-3 h-7 w-28 px-2 rounded-full items-center flex justify-between flex-row bg-opacity-60 bg-white">
+                  <div className="flex">
+                    <span className="font-bold">4.30</span>
+                    <FaStar className="mt-1 ml-1" size={15} color="orange" />
+                  </div>
+                  <div>
+                    <p>(1.1k)</p>
+                  </div>
+                </div>
+                <button className="absolute rounded-full px-2 h-7 bg-orange-400 text-white bottom-3 right-3">
+                  Order
+                </button>
+              </div>
+              <Image
+                src={albaik03}
+                alt="menu"
+                width={300}
+                height={300}
+                className="w-full -z-50 rounded-lg h-full"
+              />
+            </Link>
+          ))}
+        </div>
       </div>
       <div className="flex mt-3 relative items-center">
         <button>
           <FaCircleChevronLeft
             onClick={slideLeft}
-            className="size-7 text-blue-900 z-50"
+            className="size-6 text-blue-900 z-50"
           />
         </button>
         <div
@@ -169,7 +171,7 @@ export default function Restaurant() {
         <button>
           <FaCircleChevronRight
             onClick={slideRight}
-            className="size-7 text-blue-900 z-50"
+            className="size-6 text-blue-900 z-50"
           />
         </button>
       </div>

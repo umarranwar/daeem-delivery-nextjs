@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 
 import { FaMapMarkerAlt } from "react-icons/fa";
@@ -24,13 +24,13 @@ const HeroSection = () => {
   return (
     <div className="flex w-full flex-col justify-center">
       <video
-        className="object-cover opacity-90 max-sm:h-screen sm:h-96"
+        className="object-cover opacity-65 max-sm:h-screen sm:h-96"
         src="/video/banner_video.webm"
         autoPlay
         loop
         muted
       />
-      <div className="absolute h-96 mt-16 inset-0 bg-orange-400 opacity-20"></div>
+      {/* <div className="absolute h-96 mt-16 inset-0 bg-orange-400 opacity-20"></div> */}
 
       <motion.div
         variants={textVariants}

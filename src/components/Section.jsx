@@ -8,8 +8,8 @@ function Section() {
         <h3 className="text-lg">
           Download the app on your mobile and enjoy ordering now
         </h3>
-        <div className="mt-12 mb-10 flex flex-row">
-          <div className="mr-5 hover:cursor-pointer">
+        <div className="mt-12 gap-5 mb-10 flex flex-row">
+          <div className="hover:cursor-pointer">
             <Image
               src="/images/playstore.png"
               height={150}
@@ -22,7 +22,6 @@ function Section() {
             <Image
               src="/images/appstore.png"
               height={150}
-              className="h-auto w-auto"
               style={{ height: "auto" }}
               alt="/"
               width={150}
