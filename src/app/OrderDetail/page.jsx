@@ -6,14 +6,15 @@ import { Context } from "@/components/Context";
 
 export default function Page() {
   const { cartItems } = useContext(Context);
-  const [userData, setUserData] = useState(null);
+  const [orderData, setOrderData] = useState(null);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const userDataString = localStorage.getItem("userData");
+      const userDataString = localStorage.getItem("orderDetail");
       if (userDataString) {
         const userData = JSON.parse(userDataString);
-        setUserData(userData);
+        setOrderData(userData);
+        console.log(userData, "userData");
       } else {
         console.log("userData not found in localStorage");
       }
@@ -37,7 +38,7 @@ export default function Page() {
         <div className="w-8/12 mt-5 h-0.5 rounded-full bg-gray-300"></div>
       </div>
       <div className="flex gap-5 pb-10 text-blue-900 px-36">
-        {userData && userData.address && (
+        {orderData && orderData.address && (
           <div className="flex flex-col h-96 w-2/4">
             {/* <div className="flex p-2 flex-col w-full">
               <h1 className="text-xl my-3 font-bold">Your Address</h1>
@@ -52,19 +53,19 @@ export default function Page() {
               <div className="flex w-full">
                 <div className="">
                   <p className="text-sm m-1 text-blue-900">
-                    City: {userData.address.city}
+                    City: {orderData.address.city}
                   </p>
                   <p className="text-sm m-1 text-blue-900">
-                    District: {userData.address.district}
+                    District: {orderData.address.district}
                   </p>
                   <p className="text-sm m-1 text-blue-900">
-                    Street Address {userData.address.streetAddress}
+                    Street Address {orderData.address.streetAddress}
                   </p>
                   <p className="text-sm m-1 text-blue-900">
-                    Home Address {userData.address.homeAddress}
+                    Home Address {orderData.address.homeAddress}
                   </p>
                   <p className="text-sm m-1 text-blue-900">
-                    Location: {userData.address.location}
+                    Location: {orderData.address.location}
                   </p>
                 </div>
               </div>

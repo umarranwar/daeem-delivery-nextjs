@@ -1,9 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 
-import { CartProvider } from "../components/Context";
-import GlobalState from "../components/Context";
-
+import GlobalState from "@/components/Context";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {

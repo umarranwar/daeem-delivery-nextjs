@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { IoClose } from "react-icons/io5";
 import { CiCirclePlus } from "react-icons/ci";
 import { CiCircleMinus } from "react-icons/ci";
+import { CgSpinner } from "react-icons/cg";
 import Link from "next/link";
 import { Context } from "@/components/Context";
 import Header from "@/components/Header";
@@ -10,6 +11,7 @@ import Image from "next/image";
 import React, { useState, useEffect } from "react";
 
 export default function Page() {
+  const [loading, setLoading] = useState(false);
   const { cartItems, removeFromCart, increaseQuantity, decreaseQuantity } =
     useContext(Context);
   const [totalItems, setTotalItems] = useState(0);
@@ -34,8 +36,12 @@ export default function Page() {
     setTotal(subtotal + deliveryCost);
   }, [subtotal, deliveryCost]);
 
+  const showLoader = () => {
+    setLoading(true)
+  };
+
   return (
-    <div className="flex z-50 h-screen bg-gradient-to-tl from-blue-400 to-orange-300 flex-col items-center">
+    <div className="flex z-50 h-screen bg-gradient-to-tl from-orange-400 to-white flex-col items-center">
       <Header />
       <div className="flex z-40  flex-col justify-center items-center my-5 w-full">
         <div className="flex relative justify-center items-center p-4 w-8/12">
@@ -183,8 +189,14 @@ export default function Page() {
             </div>
             <div className="self-center mt-3">
               <Link href="/Checkout">
-                <button className="bg-blue-900 ease-in-out duration-300 self-center text-white hover:bg-orange-400 active:bg-blue-900 rounded-full hover:px-10 py-1 px-8">
+                <button
+                  onClick={showLoader}
+                  className="bg-blue-900 flex justify-center items-center ease-in-out duration-300 self-center text-white hover:bg-orange-400 active:bg-blue-900 rounded-full hover:px-10 py-1 px-8"
+                >
                   Checkout
+                  {loading && (
+                    <CgSpinner size={30} className="ml-2 animate-spin" />
+                  )}
                 </button>
               </Link>
             </div>

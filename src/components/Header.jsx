@@ -73,16 +73,18 @@ function Header() {
               </h4>
               <FaRegUser size={18} className="text-gray-100 mt-0.5" />
             </div>
-            <div className="flex gap-1">
+
+            <Link href="/Profile" className="flex gap-1">
               <h4
                 style={{
                   textShadow: "0px 1px 4px #2a2b2e",
                 }}
                 className="text-gray-100 hover:cursor-pointer"
               >
-                Driver Login
+                Profile
               </h4>
-            </div>
+              <FaRegUser size={18} className="text-gray-100 mt-0.5" />
+            </Link>
           </div>
         </div>
       </div>

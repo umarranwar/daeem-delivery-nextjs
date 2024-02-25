@@ -1,6 +1,5 @@
-import foodData from "../../data/foodData.json";
-import storeData from "../../data/storeData.json";
-
+import foodData from "../data/foodData.json";
+import storeData from "../data/storeData.json";
 
 export const getSingleFood = (id) => {
   const singleFood = foodData.find((item) => item.id === id);

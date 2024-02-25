@@ -1,34 +1,22 @@
-// import React from "react";
-// import { getSingleFood } from "../../../Helper/index";
-
-// export default function page({ searchParams }) {
-//   const id = searchParams.food;
-//   const food = getSingleFood(id);
-//   console.log("food", searchParams);
-//   console.log("getSingleFood ", food);
-//   return (
-//     <div>
-//       <h1> Food Detail {searchParams.id}</h1>
-//     </div>
-//   );
-// }
 "use client";
 import React, { useContext } from "react";
-import { getSingleFood } from "../../../Helper/index";
+import { getSingleFood } from "@/Helper";
 import Header from "@/components/Header";
 import Image from "next/image";
 import { IoClose } from "react-icons/io5";
 import { useState } from "react";
+import { CgSpinner } from "react-icons/cg";
 import { FaStar } from "react-icons/fa";
 import { Context } from "@/components/Context";
 import Link from "next/link";
-import { getSingleStore } from "@/app/Helper";
+import { getSingleStore } from "@/Helper";
 
 export default function AnotherPage(params) {
   let data = params;
   let foodId = parseInt(data.params.food);
   console.log("Params", params);
 
+  const [loading, setLoading] = useState(false);
   const singleFood = getSingleFood(foodId);
   const [quantity, setQuantity] = useState(1);
   const [size, setSize] = useState("Small");
@@ -47,12 +35,13 @@ export default function AnotherPage(params) {
   const singleStore = getSingleStore(params.params.restaurant);
 
   const handleAddToCartClick = () => {
+    setLoading(true);
     console.log("handleAddToCartClick", updatedSingleFood);
     handleAddToCart(updatedSingleFood);
   };
 
   return (
-    <div className="flex bg-gradient-to-tl from-blue-400 to-orange-300 flex-col text-blue-900 items-center justify-center">
+    <div className="flex bg-gradient-to-tl from-orange-400 to-white flex-col text-blue-900 items-center justify-center">
       <Header />
       <div className="flex flex-col justify-center items-center my-5 w-full">
         <div className="flex relative justify-center items-center p-4 w-8/12">
@@ -92,9 +81,9 @@ export default function AnotherPage(params) {
             Detail
           </h1>
         </div>
-        <div className="w-8/12 mt-5 h-0.5 rounded-full bg-gray-300"></div>
+        <div className="w-8/12 mt-5 h-0.5 rounded-full bg-white"></div>
       </div>
-      <div className="flex w-9/12 rounded-lg mb-20 bg-white shadow-[0px_2px_5px_#bab6b5] my-5 flex-row h-96">
+      <div className="flex flex-wrap w-9/12 rounded-lg mb-20 bg-white shadow-[0px_2px_5px_#bab6b5] my-5 flex-row h-96">
         <div className=" relative w-2/4 h-full">
           <Image
             src={singleFood.img}
@@ -191,20 +180,17 @@ export default function AnotherPage(params) {
             <Link href="/Cart">
               <button
                 onClick={() => handleAddToCartClick()}
-                className="self-center rounded-full hover:px-12 px-10 py-2 ease-in-out duration-300 hover:bg-blue-900 active:bg-orange-400 text-white text-sm bg-orange-400"
+                className="self-center flex justify-center items-center rounded-full hover:px-12 px-10 py-2 ease-in-out duration-300 hover:bg-blue-900 active:bg-orange-400 text-white text-sm bg-orange-400"
               >
                 Add to Cart
+                {loading && (
+                  <CgSpinner size={30} className="ml-2 animate-spin" />
+                )}
               </button>
             </Link>
           </div>
         </div>
       </div>
-
-      {/* {showMessage && (
-        <div className="fixed top-20 px-3 py-2 rounded-lg border border-gray-200 right-5 justify-between items-center bg-blue-100">
-          Your items have been added to the cart!
-        </div>
-      )} */}
     </div>
   );
 }

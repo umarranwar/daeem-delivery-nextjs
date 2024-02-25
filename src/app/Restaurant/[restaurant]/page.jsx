@@ -6,9 +6,11 @@ import Product from "@/components/Product";
 import { IoSearchCircle } from "react-icons/io5";
 import { FaStar } from "react-icons/fa";
 import { BiHeart } from "react-icons/bi";
-import foodData from "../../../data/foodData.json";
-import storeData from "../../../data/storeData.json";
-import { getSingleStore } from "@/app/Helper";
+import foodData from "@/data/foodData.json";
+import storeData from "@/data/storeData.json";
+
+import { getSingleStore } from "@/Helper/index";
+
 import Link from "next/link";
 
 export default function Restaurants({ params }) {
@@ -67,12 +69,12 @@ export default function Restaurants({ params }) {
         </div>
       </div>
       <div className="flex flex-row my-10 w-full items-center justify-center p-5">
-        <div className="flex flex-row justify-center flex-wrap gap-7 w-11/12">
+        <div className="flex justify-center flex-wrap gap-7 w-11/12">
           {filteredFood.map((item) => (
             <Link
               href={`/Restaurant/${params.restaurant}/${item.id}`}
               key={item.id}
-              className="flex w-5/12 rounded-lg h-32 shadow-[0px_2px_5px_#bab6b5] p-2 bg-white items-center justify-between"
+              className="flex xl:w-5/12 lg:w-5/12 md:w-7/12 sm:w-8/12 max-sm:w-96 rounded-lg h-32 shadow-[0px_2px_5px_#bab6b5] p-2 bg-white items-center justify-between"
             >
               <Product
                 id={item.id}

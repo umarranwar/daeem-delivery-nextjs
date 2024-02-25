@@ -85,7 +85,7 @@ export default function Checkout() {
     console.log("Order detail :", orderDetail);
 
     if (typeof window !== "undefined") {
-      localStorage.setItem("userData", JSON.stringify(orderDetail));
+      localStorage.setItem("orderDetail", JSON.stringify(orderDetail));
     }
   };
 
