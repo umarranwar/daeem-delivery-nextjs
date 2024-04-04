@@ -1,34 +1,152 @@
 [
   {
     "id": 1,
-    "store": "AlBAik",
-    "title": "7 Piece Chicken Nuggets Meal",
-    "desc": "Spicy and crunchy to perfection includes a bun, fries, and 2 nuggets",
-    "logo": "/images/AlBAaik.png",
-    "bgImg": "/images/albaik03.jpg"
+    "storeName": "Fun-Coffee",
+    "type": "Desserts - Beverages - Coffee",
+    "logo": "/images/store/fun-coffee-logo.png",
+    "bgImage": "/images/store/fun-coffee-bgImage.png",
+    "lat": 21.599167,
+    "lon": 39.194680,
+    "category": "coffee"
   },
   {
     "id": 2,
-    "store": "HERFY",
-    "title": "7 Piece Chicken Nuggets Meal",
-    "desc": "Spicy and crunchy to perfection includes a bun, fries, and 2 nuggets",
-    "logo": "/images/Herfy_logo.png",
-    "bgImg": "/images/AlBaikpic3.JPG"
+    "storeName": "Mr.mshawy",
+    "type": "Sandwich - Grill - Shawarma - Lebanese",
+    "logo": "/images/store/mr.mshawy-logo.png",
+    "bgImage": "/images/store/mr.mshawy-bgImage.png",
+    "lat": 21.603950,
+    "lon": 39.141080,
+    "category": "fastFood"
   },
   {
     "id": 3,
-    "store": "KFC",
-    "title": "7 Piece Chicken Nuggets Meal",
-    "desc": "Spicy and crunchy to perfection includes a bun, fries, and 2 nuggets",
-    "logo": "/images/KFC_logo.png",
-    "bgImg": "/images/AlBaikpic1.JPG"
+    "storeName": "Bakery-Lines",
+    "type": "Bakery - Pizza - Lebanese - Breakfast - Pastries",
+    "logo": "/images/store/bakery-lines-logo.png",
+    "bgImage": "/images/store/bakery-lines-bgImage.png",
+    "lat": 21.595385,
+    "lon": 39.119425,
+    "category": "bakery"
   },
   {
     "id": 4,
-    "store": "McDonald's",
-    "title": "7 Piece Chicken Nuggets Meal",
-    "desc": "Spicy and crunchy to perfection includes a bun, fries, and 2 nuggets",
-    "logo": "/images/McDonald's.png",
-    "bgImg": "/images/AlBaikpic1.JPG"
+    "storeName": "Macelliao-Burger",
+    "type": "Burgers",
+    "logo": "/images/store/macelliao-burger-logo.png",
+    "bgImage": "/images/store/macelliao-burger-bgImage.png",
+    "lat": 21.575026,
+    "lon": 39.118946,
+    "category": "fastFood"
+  },
+  {
+    "id": 5,
+    "storeName": "Burgunos",
+    "type": "BurgersFast Food - American - Burgers",
+    "logo": "/images/store/burgunos-logo.png",
+    "bgImage": "/images/store/burguno-bgImage.png",
+    "lat": 21.542979,
+    "lon": 39.200782,
+    "category": "fastFood"
+  },
+  {
+    "id": 6,
+    "storeName": "Yalla-Juice",
+    "type": "Juices",
+    "logo": "/images/store/yalla-juice-logo.png",
+    "bgImage": "/images/store/yalla-juice-bgImage.png",
+    "lat": 21.553106,
+    "lon": 39.218489,
+    "category": "juices"
+  },
+  {
+    "id": 7,
+    "storeName": "The-Keto-House",
+    "type": "Healthy",
+    "logo": "/images/store/the-keto-house-logo.png",
+    "bgImage": "/images/store/the-keto-house-bgImage.png",
+    "lat": 21.575359,
+    "lon": 39.220044,
+    "category": "coffee"
+  },
+  {
+    "id": 8,
+    "storeName": "Baytoti",
+    "type": "Asian - Seafood - International - Noodles",
+    "logo": "/images/store/baytoti-logo.png",
+    "bgImage": "/images/store/baytoti-bgImage.png",
+    "lat": 21.607287,
+    "lon": 39.212148,
+    "category": "seaFood"
+  },
+  {
+    "id": 9,
+    "storeName": "Al-BAik",
+    "type": "Fast Food",
+    "logo": "/images/store/al-bAik-logo.png",
+    "bgImage": "/images/store/al-bAik-bgImage.png",
+    "lat": 21.622526,
+    "lon": 39.189176,
+    "category": "fastFood"
+  },
+  {
+    "id": 10,
+    "storeName": "OVEN-PIZZA",
+    "type": "Arabic - Pizza - Pastries",
+    "logo": "/images/store/oven-pizza-logo.png",
+    "bgImage": "/images/store/oven-pizza-bgImage.png",
+    "lat": 21.624750,
+    "lon": 39.159266,
+    "category": "pizza"
+  },
+  {
+    "id": 11,
+    "storeName": "Fresh-Juices",
+    "type": "Beverages - Juices - Ice Cream",
+    "logo": "/images/store/fresh-juices-logo.png",
+    "bgImage": "/images/store/fresh-juices-bgImage.png",
+    "lat": 21.583147,
+    "lon": 39.159385,
+    "category": "juices"
+  },
+  {
+    "id": 12,
+    "storeName": "Serih-Nine",
+    "type": "Fast Food",
+    "logo": "/images/store/serih-nine.png",
+    "bgImage": "/images/store/serih-nine-bgImage.png",
+    "lat": 21.615076,
+    "lon": 39.165710,
+    "category": "fastFood"
+  },
+  {
+    "id": 13,
+    "storeName": "The-Bakery",
+    "type": "Fast Food - Bakery - Pizza",
+    "logo": "/images/store/the-bakery-logo.png",
+    "bgImage": "/images/store/the-bakery-bgImage.png",
+    "lat": 21.610767,
+    "lon": 39.151342,
+    "category": "pizza"
+  },
+  {
+    "id": 14,
+    "storeName": "Kudu",
+    "type": "Sandwich - Fast Food - Grill - Burgers - Breakfast",
+    "logo": "/images/store/kudu-logo.png",
+    "bgImage": "/images/store/kudu-bgImage.png",
+    "lat": 21.595385,
+    "lon": 39.139285,
+    "category": "fastFood"
+  },
+  {
+    "id": 15,
+    "storeName": "Anamel-Al-Sham",
+    "type": "Arabic - Shawarma",
+    "logo": "/images/store/anamel-al-sham.png",
+    "bgImage": "/images/store/anamel-al-sham-bgImage.png",
+    "lat": 21.589600,
+    "lon": 39.166923,
+    "category": "sandwich"
   }
 ]

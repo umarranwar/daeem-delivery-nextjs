@@ -12,8 +12,8 @@ export default function page() {
       <Header />
       <HeroSection />
       <Section />
-      <Restaurant />
-      <Ecommerce />
+      {/* <Restaurant />
+      <Ecommerce /> */}
       <Services />
       <Footer />
     </div>

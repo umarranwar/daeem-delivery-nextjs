@@ -6,7 +6,7 @@ export const getSingleFood = (id) => {
   return singleFood;
 };
 
-export const getSingleStore = (store) => {
-  const singleStore = storeData.find((item) => item.store === store);
+export const getSingleStore = (name) => {
+  const singleStore = storeData.find((item) => item.storeName === name);
   return singleStore;
 };

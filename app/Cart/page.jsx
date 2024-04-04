@@ -37,26 +37,14 @@ export default function Page() {
   }, [subtotal, deliveryCost]);
 
   const showLoader = () => {
-    setLoading(true)
+    setLoading(true);
   };
 
   return (
-    <div className="flex min-h-screen pb-10 bg-gradient-to-tl from-orange-400 to-white flex-col items-center">
+    <div className="flex flex-col items-center">
       <Header />
-      <div className="flex z-40  flex-col justify-center items-center my-5 w-full">
+      {/* <div className="flex z-40  flex-col justify-center items-center my-5 w-full">
         <div className="flex relative justify-center items-center p-4 w-8/12">
-          {/* <div className="flex absolute left-5 items-center">
-            <div className="relative w-16 h-16">
-              <Image
-                src="/images/AlBAaik.png"
-                width={100}
-                height={100}
-                className="w-full h-full"
-                alt="AlBAik Logo"
-              />
-            </div>
-            <p className="font-bold text-blue-900 ml-2">AlBAik</p>
-          </div> */}
           <h1
             style={{
               textShadow: "0px 1px 4px #2a2b2e",
@@ -75,8 +63,8 @@ export default function Page() {
           </h1>
         </div>
         <div className="w-7/12 mt-5 h-0.5 rounded-full bg-gray-100"></div>
-      </div>
-      <div className="flex z-50 justify-center text-sm gap-5 w-full">
+      </div> */}
+      {/* <div className="flex z-50 justify-center text-sm gap-5 w-full">
         <div className="flex w-5/12 gap-2 mb-10 flex-col">
           {cartItems.length === 0 ? (
             <Link href="/Restaurant">
@@ -132,42 +120,6 @@ export default function Page() {
               </div>
             ))
           )}
-          {/* {cartItems.map((item) => (
-            <div
-              key={item.id}
-              className="flex px-3 py-1 border text-blue-900 gap-4 items-center justify-between flex-row"
-            >
-              <div className="flex justify-center items-center gap-3">
-                <div className="relative w-16 h-16">
-                  <Image
-                    src={item.img}
-                    className="rounded-full w-full h-full"
-                    width={100}
-                    height={100}
-                    alt="items"
-                  />
-                </div>
-                <p>{item.name}</p>
-                <p>{item.size}</p>
-              </div>
-              <div className="flex justify-center items-center gap-5">
-                <div className="flex justify-center items-center gap-3">
-                  <p>Qty</p>
-                  <button onClick={() => decreaseQuantity(item.id)}>
-                    <CiCircleMinus size={30} />
-                  </button>
-                  <p>{item.quantity}</p>
-                  <button onClick={() => increaseQuantity(item.id)}>
-                    <CiCirclePlus size={30} />
-                  </button>
-                </div>
-                <p>SAR {item.price.toFixed(2)}</p>
-                <button onClick={() => removeFromCart(item.id)}>
-                  <IoClose className="size-5 text-gray-700" />
-                </button>
-              </div>
-            </div>
-          ))} */}
         </div>
         <div className="h-auto w-64">
           <div className="flex p-5 shadow-[0px_1px_3px_#bab6b5] bg-gray-100 rounded-xl border gap-4 flex-col">
@@ -201,6 +153,94 @@ export default function Page() {
               </Link>
             </div>
           </div>
+        </div>
+      </div> */}
+      <div className="flex gap-5 mt-10 p-10 w-full h-auto">
+        <div className="flex border rounded-md flex-col w-8/12">
+          <h1 className="p-5 font-semibold text-gray-800">Shopping Cart</h1>
+          <div className="flex bg-gray-200 py-4 text-sm w-full  justify-between items-center">
+            <div className="w-2/4 px-5">
+              <p>PRODUCTS</p>
+            </div>
+            <div className="flex px-5 w-2/4 justify-between items-center">
+              <h1>PRICE</h1>
+              <h1>QUANTITY</h1>
+              <h1>SUB-TOTAL</h1>
+            </div>
+          </div>
+          <div className="flex flex-col">
+            {cartItems.map((item) => (
+              <div
+                className="flex py-4 text-sm w-full justify-between items-center"
+                key={item.id}
+              >
+                <div className="w-2/4 px-5">
+                  <div className="flex items-center gap-2">
+                    <button onClick={() => removeFromCart(item.id)}>
+                      <IoClose className="size-5 text-gray-700" />
+                    </button>
+                    <div className="relative w-16 h-16">
+                      <Image
+                        src={item.img}
+                        className="rounded-full w-full h-full"
+                        width={100}
+                        height={100}
+                        alt="items"
+                      />
+                    </div>
+                    <p>{item.name}</p>
+                  </div>
+                </div>
+                <div className="flex pr-5 w-2/4 justify-between items-center">
+                  <p className="font-bold ml-2 text-orange-400">
+                    SAR {item.price.toFixed(2)}
+                  </p>
+                  <div className="flex mr-7 justify-center items-center gap-3">
+                    <button onClick={() => decreaseQuantity(item.id)}>
+                      <CiCircleMinus size={30} />
+                    </button>
+                    <p>{item.quantity}</p>
+                    <button onClick={() => increaseQuantity(item.id)}>
+                      <CiCirclePlus size={30} />
+                    </button>
+                  </div>
+                  <h1 className="text-gray-800 mr-4 font-bold">
+                    {subtotal.toFixed(2)}
+                  </h1>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="flex p-5 rounded-md border text-sm flex-col w-4/12">
+          <h1 className=" font-bold text-gray-800">Cart Total</h1>
+          <div className="flex justify-between items-center py-2">
+            <p>Total Items</p>
+            <p>{totalItems}</p>
+          </div>
+          <div className="flex justify-between items-center py-2">
+            <p>Subtotal Inc Vat</p>
+            <p>SAR {subtotal.toFixed(2)}</p>
+          </div>
+          <div className="flex justify-between items-center py-2">
+            <p>Delivery</p>
+            <p>SAR {deliveryCost.toFixed(2)}</p>
+          </div>
+          <div className=" w-full h-0.5 rounded-full bg-gray-200"></div>
+          <div className="flex font-bold justify-between items-center py-2">
+            <p>Total</p>
+            <p>SAR {total.toFixed(2)}</p>
+          </div>
+          {/* <button className="text-center text-sm text-white font-semibold bg-orange-400 p-2 rounded-lg">Proceed to Checkout</button> */}
+          <Link className="w-full" href="/Checkout">
+            <button
+              onClick={showLoader}
+              className="text-center text-sm text-white font-semibold bg-orange-400 p-2 rounded-lg"
+            >
+              Checkout
+              {loading && <CgSpinner size={30} className="ml-2 animate-spin" />}
+            </button>
+          </Link>
         </div>
       </div>
     </div>

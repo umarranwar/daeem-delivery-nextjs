@@ -19,9 +19,12 @@ export default function Product({ name, price, desc, img }) {
         <div className="flex flex-col justify-between items-baseline w-full pl-2 h-full">
           <div>
             <h1 className="text-lg text-gray-700">{name}</h1>
-            <p className="text-sm text-gray-500">{desc}</p>
+            <p className="text-sm text-gray-500">
+              {desc.split(" ").slice(0, 10).join(" ")}{" "}
+              {desc.split(" ").length > 10 ? "..." : ""}
+            </p>
           </div>
-          <div className="flex gap-3">
+          <div className="flex justify-center items-center gap-3">
             <h1 className="text-gray-800">{price}.00 SAR</h1>
             <h1 className="text-sm text-gray-500 line-through">
               {price}.00 SAR
