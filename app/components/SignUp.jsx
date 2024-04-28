@@ -1,21 +1,20 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { IoClose } from "react-icons/io5";
 
 export default function SignUp({ showLogin, closeSignUp }) {
   // State to store user input and validation errors
   const [userData, setUserData] = useState({
-    name: "",
+    username: "",
     phoneOrEmail: "",
     password: "",
   });
 
   const [validationErrors, setValidationErrors] = useState({
-    name: "",
+    username: "",
     phoneOrEmail: "",
     password: "",
   });
 
-  // Function to handle input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setUserData((prevData) => ({
@@ -36,8 +35,8 @@ export default function SignUp({ showLogin, closeSignUp }) {
     const newErrors = {};
 
     // Simple validation for demonstration purposes
-    if (userData.name.trim() === "") {
-      newErrors.name = "Name is required";
+    if (userData.username.trim() === "") {
+      newErrors.username = "Name is required";
       isValid = false;
     }
 
@@ -57,50 +56,90 @@ export default function SignUp({ showLogin, closeSignUp }) {
     return isValid;
   };
 
-  // Function to handle sign up button click
   const handleSignUp = () => {
     // Perform input validation
     if (validateInputs()) {
-      // Save user data to local storage
-      localStorage.setItem("userData", JSON.stringify(userData));
+      // Get existing users from local storage
+      const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
 
-      // Close the sign-up modal or perform any other action
-      closeSignUp();
-      showLogin();
+      // Check if the email already exists
+      const emailExists = existingUsers.some(
+        (user) => user.phoneOrEmail === userData.phoneOrEmail
+      );
+
+      if (emailExists) {
+        alert(
+          "Email or phone already exists. Please use a different email or phone number."
+        );
+        return; // Stop sign-up process if email already exists
+      }
+
+      // Add the new user to the array of users
+      const newUser = {
+        username: userData.username,
+        phoneOrEmail: userData.phoneOrEmail,
+        password: userData.password,
+      };
+      const updatedUsers = [...existingUsers, newUser];
+
+      // Store the updated array of users back in local storage
+      localStorage.setItem("users", JSON.stringify(updatedUsers));
+
+      // Log the updated array of users to the console
+      console.log("All users:", updatedUsers);
+
+      // Clear form fields and perform any other actions
+      setUserData({
+        username: "",
+        phoneOrEmail: "",
+        password: "",
+      });
+
+      // Display success message
+      alert("User signed up successfully!");
     }
   };
-  return (
-    <div className="fixed inset-20 justify-between items-center right-80 left-80 flex flex-col shadow-[0px_2px_5px_#bab6b5] rounded-xl bg-gradient-to-br bg-gray-100">
-      <IoClose
-        onClick={closeSignUp}
-        className="size-7 cursor-pointer text-blue-900 absolute right-2 top-2 z-50"
-      />
 
-      <div className="w-8/12 flex flex-col items-center">
-        <h1 className="mt-8 mb-3 font-bold text-xl text-blue-900">Sign up</h1>
+  const handleLoginButton = () => {
+    closeSignUp();
+    showLogin();
+  };
+  return (
+    <div className="w-2/4 flex mb-10 items-center flex-col rounded-lg border">
+      <h1 className="mt-5 mb-3 ml-10 self-start font-semibold text-gray-700">
+        Sign Up
+        {/* {closeSignUp && (
+          <IoClose onClick={closeSignUp} className="float-right" />
+        )} */}
+      </h1>
+      <div className="flex px-16 flex-col justify-center items-center w-full">
         <div className="w-full">
-          <p className="text-sm m-1 font-bold text-blue-900">Name</p>
+          <p className="text-xs m-1 font-semibold text-gray-600">Name</p>
           <input
             type="text"
-            name="name"
-            value={userData.name}
+            name="username"
+            value={userData.username}
             onChange={handleInputChange}
             placeholder="Enter your name"
-            className="w-full px-3 h-9 mb-1 text-sm border shadow-[0px_1px_3px_#bab6b5] bg-transparent focus:outline-none focus:ring-blue-900 focus:ring-1 rounded-md"
+            className="w-full px-3 text-sm mb-2 border bg-transparent focus:outline-orange-400 rounded-md h-9"
           />
-          {validationErrors.name && (
-            <p className="text-xs ml-1 text-red-500">{validationErrors.name}</p>
+          {validationErrors.username && (
+            <p className="text-xs ml-1 text-red-500">
+              {validationErrors.username}
+            </p>
           )}
         </div>
         <div className="w-full">
-          <p className="text-sm m-1 font-bold text-blue-900">Phone or Email</p>
+          <p className="text-xs m-1 font-semibold text-gray-600">
+            Phone or Email
+          </p>
           <input
             type="text"
             name="phoneOrEmail"
             value={userData.phoneOrEmail}
             onChange={handleInputChange}
             placeholder="Enter your phone or email"
-            className="w-full px-3 h-9 mb-1 text-sm border shadow-[0px_1px_3px_#bab6b5] bg-transparent focus:outline-none focus:ring-blue-900 focus:ring-1 rounded-md"
+            className="w-full px-3 text-sm mb-2 border bg-transparent focus:outline-orange-400 rounded-md h-9"
           />
           {validationErrors.phoneOrEmail && (
             <p className="text-xs ml-1 text-red-500">
@@ -109,14 +148,14 @@ export default function SignUp({ showLogin, closeSignUp }) {
           )}
         </div>
         <div className="w-full">
-          <p className="text-sm m-1 font-bold text-blue-900">Password</p>
+          <p className="text-xs m-1 font-semibold text-gray-600">Password</p>
           <input
             type="password"
             name="password"
             value={userData.password}
             onChange={handleInputChange}
             placeholder="Password"
-            className="w-full px-3 h-9 mb-1 text-sm border shadow-[0px_1px_3px_#bab6b5] bg-transparent focus:outline-none focus:ring-blue-900 focus:ring-1 rounded-md"
+            className="w-full px-3 text-sm mb-2 border bg-transparent focus:outline-orange-400 rounded-md h-9"
           />
           {validationErrors.password && (
             <p className="text-xs ml-1 text-red-500">
@@ -126,9 +165,15 @@ export default function SignUp({ showLogin, closeSignUp }) {
         </div>
         <button
           onClick={handleSignUp}
-          className="flex self-center mt-5 bg-blue-900 ease-in-out duration-300 hover:bg-orange-400 active:bg-blue-800 justify-center rounded-full items-center hover:w-3/4 w-8/12 h-9"
+          className="flex self-center mt-5 bg-orange-400 justify-center rounded-full items-center w-full h-9"
         >
           <p className="flex text-sm text-white">Sign up</p>
+        </button>
+        <button
+          onClick={handleLoginButton}
+          className="flex self-center mt-5 border justify-center rounded-full items-center w-full h-9"
+        >
+          <p className="flex text-sm text-black">Login</p>
         </button>
       </div>
     </div>

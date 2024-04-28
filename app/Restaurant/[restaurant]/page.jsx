@@ -1,10 +1,10 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Header from "../../components/Header";
 import Image from "next/image";
 import Product from "../../components/Product";
 import { IoSearchCircle } from "react-icons/io5";
 import foodData from "../../data/foodData.json";
+import { BiHeart } from "react-icons/bi";
 
 import { getSingleStore } from "../../Helper/index";
 
@@ -40,7 +40,6 @@ export default function Restaurants({ params }) {
           </div>
         </div>
       )}
-      <Header />
       <div
         style={{
           backgroundImage: `url('${singleStore.bgImage}')`,
@@ -88,7 +87,8 @@ export default function Restaurants({ params }) {
               className="ml-2 font-bold text-white"
             >
               Distance 2.0 km
-            </h2> <h2
+            </h2>
+            <h2
               style={{
                 textShadow: "0px 1px 4px #2a2b2e",
               }}

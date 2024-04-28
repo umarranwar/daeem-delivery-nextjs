@@ -6,18 +6,47 @@ import { Context } from "@/components/Context";
 
 export default function Page() {
   const { cartItems } = useContext(Context);
-  const [orderData, setOrderData] = useState(null);
+  const [userAddress, setUserAddress] = useState(null); // State to hold user's address
+  const [userEmail, setUserEmail] = useState(null); // State to hold user's email
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const userDataString = localStorage.getItem("orderDetail");
-      if (userDataString) {
-        const userData = JSON.parse(userDataString);
-        setOrderData(userData);
-        console.log(userData, "userData");
+    // Retrieve the current user's data from local storage
+    const userAuth = JSON.parse(localStorage.getItem("userAuth"));
+    if (userAuth && userAuth.currentUser) {
+      const currentUser = userAuth.currentUser;
+
+      // Set the user's email
+      setUserEmail(currentUser.phoneOrEmail);
+
+      // Retrieve the storedUsers array from local storage
+      let storedUsers = JSON.parse(localStorage.getItem("users")) || [];
+
+      // Find the index of the current user in the storedUsers array
+      const userIndex = storedUsers.findIndex(
+        (user) => user.phoneOrEmail === currentUser.phoneOrEmail
+      );
+
+      if (userIndex !== -1 && storedUsers[userIndex].address) {
+        // Set the user's address in state
+        setUserAddress(storedUsers[userIndex].address);
+
+        // Add cartItems to user's history if not already added
+        if (!storedUsers[userIndex].history) {
+          storedUsers[userIndex].history = cartItems;
+        } else {
+          storedUsers[userIndex].history = [
+            ...storedUsers[userIndex].history,
+            ...cartItems,
+          ];
+        }
+
+        // Update local storage with updated storedUsers array
+        localStorage.setItem("users", JSON.stringify(storedUsers));
       } else {
-        console.log("userData not found in localStorage");
+        console.error("User not found or address not available!");
       }
+    } else {
+      console.error("User data not found in local storage!");
     }
   }, []);
 
@@ -27,137 +56,121 @@ export default function Page() {
   );
 
   return (
-    <div className="bg-gradient-to-br from-white to-orange-400">
+    <div className="bg-orange-100">
       <Header />
-      <div className="flex flex-col justify-center items-center w-full">
-        <div className="flex relative my-8 justify-center items-center w-8/12">
-          <h1
-            style={{
-              textShadow: "0px 1px 4px #2a2b2e",
-            }}
-            className="font-bold text-2xl text-white"
-          >
-            Order Detail
-          </h1>
-        </div>
-        <div className="w-8/12 h-0.5 rounded-full bg-white"></div>
-      </div>
-      <div className="flex my-5 flex-col justify-center items-center">
-        <p
-          style={{
-            textShadow: "0px 1px 4px #2a2b2e",
-          }}
-          className="font-bold text-2xl text-white"
-        >
-          Thank you for your order!
-        </p>
-        <p
-          style={{
-            textShadow: "0px 1px 4px #2a2b2e",
-          }}
-          className="font-bold mt-3 text-white"
-        >
-          We will deliver your order soon.
-        </p>
-        <p
-          style={{
-            textShadow: "0px 1px 4px #2a2b2e",
-          }}
-          className="font-bold mt-3 text-white"
-        >
-          Payment{" "}
-          {orderData && orderData.address && orderData.address.paymentMode}
-        </p>
-      </div>
-      <div className="flex gap-5 pb-10 text-blue-900 px-36">
-        {orderData && orderData.address && (
-          <div className="flex flex-col h-96 w-2/4">
-            {/* <div className="flex p-2 flex-col w-full">
-              <h1 className="text-xl my-3 font-bold">Your Address</h1>
-            </div> */}
-            <div className="flex mt-2 justify-center items-center  gap-1">
-              <h1
-                style={{
-                  textShadow: "0px 1px 4px #2a2b2e",
-                }}
-                className="font-bold text-white mb-2"
-              >
-                Your Address
-              </h1>
-            </div>
-            <div className="flex p-6 flex-col bg-white shadow-[0px_2px_5px_#bab6b5] rounded-lg">
-              <div className="flex w-full">
-                <div className="">
-                  <p className="text-sm m-1 text-blue-900">
-                    City {orderData.address.city}
-                  </p>
-                  <p className="text-sm m-1 text-blue-900">
-                    District: {orderData.address.district}
-                  </p>
-                  <p className="text-sm m-1 text-blue-900">
-                    Street Address {orderData.address.streetAddress}
-                  </p>
-                  <p className="text-sm m-1 text-blue-900">
-                    Home Address {orderData.address.homeAddress}
-                  </p>
-                  <p className="text-sm m-1 text-blue-900">
-                    Location: {orderData.address.location}
+      <div className="flex justify-center bg-orange-50 items-center w-full h-auto">
+        <div className="flex w-9/12 p-10 h-auto justify-center items-center">
+          <div className="flex w-2/4 flex-col px-10">
+            <h1 className="font-bold Your order is currently being processed and will soon be delivered to your doorstep, ensuring your satisfaction and delight.d text-3xl">
+              Thank you for your order!
+            </h1>
+            <p className="text-xs mt-4">
+              Your order is currently being processed and will soon be delivered
+              to your doorstep, ensuring your satisfaction and delight.
+            </p>
+            <h1 className="font-bold mt-6">Your Address</h1>
+            {userAddress && (
+              <>
+                <div className="flex mt-3 gap-16">
+                  <h1 className="text-xs font-bold">Name</h1>
+                  <p className="text-xs">
+                    {userAddress.firstName} {userAddress.secondName}
                   </p>
                 </div>
-              </div>
-            </div>
+                <div className="flex mt-3 gap-12">
+                  <h1 className="text-xs font-bold">Address</h1>
+                  <p className="text-xs">
+                    {userAddress.homeAddress} {userAddress.streetAddress}{" "}
+                    {userAddress.district} {userAddress.city}{" "}
+                    {userAddress.location}
+                  </p>
+                </div>
+                <div className="flex mt-3 gap-14">
+                  <h1 className="text-xs font-bold">Phone</h1>
+                  <p className="text-xs">{userAddress.phoneNo}</p>
+                </div>
+                <div className="flex mt-3 gap-16">
+                  <h1 className="text-xs font-bold">Email</h1>
+                  <p className="text-xs">{userEmail}</p>
+                </div>
+              </>
+            )}
+            <button className="w-2/4 mt-7 text-white font-bold text-xs rounded-full py-1.5 bg-orange-400">
+              Track Your Order
+            </button>
           </div>
-        )}
-        <div className="flex flex-col w-7/12 h-auto">
-          <div className="flex w-full">
-            <div className="flex p-2 flex-col w-full">
-              <div className="flex justify-center items-center  gap-1">
-                <h1
-                  style={{
-                    textShadow: "0px 1px 4px #2a2b2e",
-                  }}
-                  className="font-bold text-white mb-2"
-                >
-                  Order Your
-                </h1>
+          <div className="flex justify-center px-3 items-center relative w-6/12 flex-col">
+            <div className="h-8 absolute top-0 w-full bg-gray-200 rounded-full"></div>
+            <div className="flex p-5 w-full z-10 mt-4 bg-white flex-col">
+              <h1 className="font-extrabold text-gray-800">Order Summary</h1>
+              <div className="h-0.5 my-3 rounded-full w-full bg-gray-200"></div>
+              <div className="flex justify-between">
+                <div className="flex flex-col gap-1">
+                  <h1 className="text-xs font-semibold text-gray-800">Date</h1>
+                  <h1 className="text-xs text-gray-800 font-bold">
+                    02 May 2024
+                  </h1>
+                </div>
+                <div className="w-0.5 h-full bg-gray-200"></div>
+                <div className="flex flex-col gap-1">
+                  <h1 className="text-xs font-semibold text-gray-800">
+                    Order Number
+                  </h1>
+                  <h1 className="text-xs text-gray-800 font-bold">
+                    #123456789
+                  </h1>
+                </div>
+                <div className="w-0.5 h-full bg-gray-200"></div>
+                <div className="flex flex-col gap-1">
+                  <h1 className="text-xs font-semibold text-gray-800">
+                    Payment Method
+                  </h1>
+                  {userAddress && (
+                    <h1 className="text-xs text-gray-800 font-bold">
+                      {userAddress.paymentMode}
+                    </h1>
+                  )}
+                </div>
               </div>
-              <div className="flex p-6 flex-col bg-white shadow-[0px_2px_5px_#bab6b5] rounded-lg">
-                {cartItems.map((item, index) => (
-                  <div key={index}>
-                    <div className="flex justify-between items-center w-full">
-                      <div className="flex justify-center items-center gap-2">
-                        <div className="w-16 p-1 rounded-full h-16 ">
-                          <Image
-                            alt="item-image"
-                            src={item.img}
-                            className="rounded-full w-full h-full"
-                            width={50}
-                            height={50}
-                          />
-                        </div>
-                        <p>{item.quantity}</p>
-                        <p>{item.name}</p>
-                        <p>{item.size}</p>
+              <div class="border-b-2 border-dash border-gray-200 border-dash border-dash-sm my-3"></div>
+              {cartItems.map((item, index) => (
+                <div key={index}>
+                  <div className="flex justify-between items-center m-3 gap-5">
+                    <div className="flex items-center justify-center gap-3">
+                      <div className="w-16 p-1 rounded-xl h-16 ">
+                        <Image
+                          alt="item-image"
+                          src={item.img}
+                          className="rounded-full w-full h-full"
+                          width={50}
+                          height={50}
+                        />
                       </div>
-                      <p className="font-bold">{item.price}.0</p>
+                      <div className="flex justify-center text-sm flex-col">
+                        <h1>{item.name}</h1>
+                        <p className="text-xs">
+                          {item.quantity} x SAR {item.price}
+                        </p>
+                      </div>
                     </div>
-                    <div className="w-full h-0.5 bg-gray-200"></div>
+                    <h1 className="font-semibold text-sm">
+                      {item.quantity * item.price}
+                    </h1>
                   </div>
-                ))}
-                <div className="flex justify-between items-center w-full h-14">
-                  <p className="flex">Subtotal Inc Vat</p>
-                  <p className="flex">SAR {totalPrice}</p>
                 </div>
-                <div className="w-full h-0.5 bg-gray-200"></div>
-                <div className="flex justify-between items-center w-full h-14">
-                  <p className="flex">Delivery</p>
-                  <p className="flex">SAR 10.0</p>
-                </div>
-                <div className="w-full h-0.5 bg-gray-200"></div>
-                <div className="flex font-bold justify-between items-center w-full h-14">
-                  <p className="flex">Total</p>
-                  <p className="flex">SAR {totalPrice + 10}</p>
-                </div>
+              ))}
+              <div className="flex my-2 text-sm text-gray-600 font-semibold justify-between">
+                <h1>Sub-total</h1>
+                <h1>SAR {totalPrice}</h1>
+              </div>
+              <div className="flex text-sm text-gray-600 font-semibold justify-between">
+                <h1>Delivery</h1>
+                <h1>SAR 10</h1>
+              </div>
+              <div className="w-full my-2 h-0.5 bg-gray-200"></div>
+              <div className="flex text-sm justify-between">
+                <h1 className="font-bold text-gray-800">Total</h1>
+                <h1 className="font-bold">SAR {totalPrice + 10}.0</h1>
               </div>
             </div>
           </div>

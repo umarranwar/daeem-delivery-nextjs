@@ -5,6 +5,7 @@ export const Context = createContext(null);
 
 function GlobalState({ children }) {
   const [cartItems, setCartItems] = useState([]);
+  const [wishlistItems, setWishlistItems] = useState([]);
 
   function handleAddToCart(getCurrentItem) {
     let copyCartItems = [...cartItems];
@@ -70,11 +71,47 @@ function GlobalState({ children }) {
     }
   }
 
+  function toggleWishlistItem(getCurrentItem) {
+    let copyWishlistItems = [...wishlistItems];
+    const indexOfCurrentItem = copyWishlistItems.findIndex(
+      (item) => item.id === getCurrentItem.id
+    );
+
+    if (indexOfCurrentItem !== -1) {
+      // If the item with the same ID is already in the wishlist, remove it
+      copyWishlistItems.splice(indexOfCurrentItem, 1);
+    } else {
+      // Otherwise, add it to the wishlist
+      copyWishlistItems.push(getCurrentItem);
+    }
+
+    setWishlistItems(copyWishlistItems);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("wishlistItems", JSON.stringify(copyWishlistItems));
+    }
+  }
+
+  function removeFromWishlist(getCurrentId) {
+    let copyWishlistItems = [...wishlistItems];
+    const updatedWishlistItems = copyWishlistItems.filter(
+      (item) => item.id !== getCurrentId
+    );
+
+    setWishlistItems(updatedWishlistItems);
+    if (typeof window !== "undefined") {
+      localStorage.setItem(
+        "wishlistItems",
+        JSON.stringify(updatedWishlistItems)
+      );
+    }
+  }
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       setCartItems(JSON.parse(localStorage.getItem("cartItems")) || []);
+      setWishlistItems(JSON.parse(localStorage.getItem("wishlistItems")) || []);
     }
-  }, []);
+  }, [setCartItems, setWishlistItems]);
 
   return (
     <Context.Provider
@@ -84,6 +121,9 @@ function GlobalState({ children }) {
         removeFromCart,
         increaseQuantity,
         decreaseQuantity,
+        wishlistItems,
+        toggleWishlistItem,
+        removeFromWishlist,
       }}
     >
       {children}

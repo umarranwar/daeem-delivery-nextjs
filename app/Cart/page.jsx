@@ -6,7 +6,7 @@ import { CiCircleMinus } from "react-icons/ci";
 import { CgSpinner } from "react-icons/cg";
 import Link from "next/link";
 import { Context } from "@/components/Context";
-import Header from "@/components/Header";
+import Header from "@/components/server/Header";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
 
@@ -157,8 +157,8 @@ export default function Page() {
       </div> */}
       <div className="flex gap-5 mt-10 p-10 w-full h-auto">
         <div className="flex border rounded-md flex-col w-8/12">
-          <h1 className="p-5 font-semibold text-gray-800">Shopping Cart</h1>
-          <div className="flex bg-gray-200 py-4 text-sm w-full  justify-between items-center">
+          <h1 className="p-3 font-semibold text-gray-800">Shopping Cart</h1>
+          <div className="flex bg-gray-200 py-2 text-xs w-full  justify-between items-center">
             <div className="w-2/4 px-5">
               <p>PRODUCTS</p>
             </div>
@@ -168,49 +168,62 @@ export default function Page() {
               <h1>SUB-TOTAL</h1>
             </div>
           </div>
-          <div className="flex flex-col">
-            {cartItems.map((item) => (
-              <div
-                className="flex py-4 text-sm w-full justify-between items-center"
-                key={item.id}
-              >
-                <div className="w-2/4 px-5">
-                  <div className="flex items-center gap-2">
-                    <button onClick={() => removeFromCart(item.id)}>
-                      <IoClose className="size-5 text-gray-700" />
-                    </button>
-                    <div className="relative w-16 h-16">
-                      <Image
-                        src={item.img}
-                        className="rounded-full w-full h-full"
-                        width={100}
-                        height={100}
-                        alt="items"
-                      />
-                    </div>
-                    <p>{item.name}</p>
-                  </div>
-                </div>
-                <div className="flex pr-5 w-2/4 justify-between items-center">
-                  <p className="font-bold ml-2 text-orange-400">
-                    SAR {item.price.toFixed(2)}
-                  </p>
-                  <div className="flex mr-7 justify-center items-center gap-3">
-                    <button onClick={() => decreaseQuantity(item.id)}>
-                      <CiCircleMinus size={30} />
-                    </button>
-                    <p>{item.quantity}</p>
-                    <button onClick={() => increaseQuantity(item.id)}>
-                      <CiCirclePlus size={30} />
-                    </button>
-                  </div>
-                  <h1 className="text-gray-800 mr-4 font-bold">
-                    {subtotal.toFixed(2)}
-                  </h1>
-                </div>
+          {cartItems.length === 0 ? (
+            <div className="flex justify-center items-center">
+              <div className="relative w-52 h-52">
+                <Image
+                  src="/images/empty-cart-icon.png"
+                  className="w-full h-full"
+                  width={500}
+                  height={500}
+                />
               </div>
-            ))}
-          </div>
+            </div>
+          ) : (
+            <div className="flex flex-col">
+              {cartItems.map((item) => (
+                <div
+                  className="flex py-4 text-sm w-full justify-between items-center"
+                  key={item.id}
+                >
+                  <div className="w-2/4 px-5">
+                    <div className="flex items-center gap-2">
+                      <button onClick={() => removeFromCart(item.id)}>
+                        <IoClose className="size-5 text-gray-700" />
+                      </button>
+                      <div className="relative w-16 h-16">
+                        <Image
+                          src={item.img}
+                          className="rounded-full w-full h-full"
+                          width={100}
+                          height={100}
+                          alt="items"
+                        />
+                      </div>
+                      <p>{item.name}</p>
+                    </div>
+                  </div>
+                  <div className="flex pr-5 w-2/4 justify-between items-center">
+                    <p className="font-bold ml-2 text-orange-400">
+                      SAR {item.price.toFixed(2)}
+                    </p>
+                    <div className="flex mr-7 justify-center items-center gap-3">
+                      <button onClick={() => decreaseQuantity(item.id)}>
+                        <CiCircleMinus size={30} />
+                      </button>
+                      <p>{item.quantity}</p>
+                      <button onClick={() => increaseQuantity(item.id)}>
+                        <CiCirclePlus size={30} />
+                      </button>
+                    </div>
+                    <h1 className="text-gray-800 mr-4 font-bold">
+                      {subtotal.toFixed(2)}
+                    </h1>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
         <div className="flex p-5 rounded-md border text-sm flex-col w-4/12">
           <h1 className=" font-bold text-gray-800">Cart Total</h1>
@@ -235,10 +248,10 @@ export default function Page() {
           <Link className="w-full" href="/Checkout">
             <button
               onClick={showLoader}
-              className="text-center text-sm text-white font-semibold bg-orange-400 p-2 rounded-lg"
+              className="text-center w-full text-sm text-white font-semibold bg-orange-400 p-2 rounded-lg"
             >
               Checkout
-              {loading && <CgSpinner size={30} className="ml-2 animate-spin" />}
+              {/* {loading && <CgSpinner size={30} className="ml-2 animate-spin" />} */}
             </button>
           </Link>
         </div>

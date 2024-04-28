@@ -1,98 +1,282 @@
 "use client";
 import Header from "@/components/Header";
+import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { CiUser } from "react-icons/ci";
 import { FiEdit } from "react-icons/fi";
 
 export default function Page() {
-  const [orderData, setOrderData] = useState(null);
-  const [userInfo, setUserInfo] = useState({}); // Initialize userInfo as an empty object
+  const [userAddress, setUserAddress] = useState(null); // State to hold user's address
+  const [userEmail, setUserEmail] = useState(null);
+  const [showOrderHistory, setShowOrderHistory] = useState(false);
 
   useEffect(() => {
+    // Retrieve the current user's data from local storage
+    const userAuth = JSON.parse(localStorage.getItem("userAuth"));
+    if (userAuth && userAuth.currentUser) {
+      const currentUser = userAuth.currentUser;
+
+      // Set the user's email
+      setUserEmail(currentUser.phoneOrEmail);
+
+      // Retrieve the storedUsers array from local storage
+      let storedUsers = JSON.parse(localStorage.getItem("users")) || [];
+
+      // Find the index of the current user in the storedUsers array
+      const userIndex = storedUsers.findIndex(
+        (user) => user.phoneOrEmail === currentUser.phoneOrEmail
+      );
+
+      if (userIndex !== -1 && storedUsers[userIndex].address) {
+        // Set the user's address in state
+        setUserAddress(storedUsers[userIndex].address);
+      } else {
+        console.error("User not found or address not available!");
+      }
+    } else {
+      console.error("User data not found in local storage!");
+    }
+
+    // Check for order detail in local storage
     if (typeof window !== "undefined") {
       const userDataString = localStorage.getItem("orderDetail");
-      const userInfoString = localStorage.getItem("userData");
 
       if (userDataString) {
         const userData = JSON.parse(userDataString);
         setOrderData(userData);
-        console.log(userData, "orderData");
+        console.log(userData, "userData");
       } else {
-        console.log("orderData not found in localStorage");
-      }
-
-      if (userInfoString) {
-        const userData = JSON.parse(userInfoString);
-        setUserInfo(userData);
-        console.log(userData, "userInfo");
-      } else {
-        console.log("userInfo not found in localStorage");
+        console.log("userData not found in localStorage");
       }
     }
   }, []);
 
+  // Handle input changes
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setUserAddress({
+      ...userAddress,
+      [name]: value,
+    });
+  };
+
+  const handleOrdersButtonClick = () => {
+    setShowOrderHistory((prevShowOrderHistory) => !prevShowOrderHistory);
+  };
+
   return (
     <div className="flex flex-col items-center">
-      <Header />
-      <h1 className="font-bold text-xl my-8 text-gray-700">User Profile</h1>
-      <div className="flex w-8/12 justify-center">
-        <div className="flex items-center p-4 border-1 bg-gray-50 h-96 flex-col w-56">
+      <div className="flex mt-10 w-9/12 justify-center">
+        {/* Profile section */}
+        <div className="flex items-center  p-4 border-1 bg-gray-50 flex-col w-56">
+          {/* Profile details */}
+          <h1 className="mb-4 text-gray-800 font-semibold text-lg">
+            Your Profile
+          </h1>
           <div className="flex justify-center items-center w-40 h-40 rounded-full bg-gray-200">
             <CiUser size={100} color="gray" />
           </div>
-          <div className="flex gap-2 text-gray-700 mt-3 items-center flex-col ">
-            <h1 className="font-semibold">{userInfo.name}</h1>
-            <button className="hover:font-bold">Your Orders</button>
-            <button className="hover:font-bold">Your Payments</button>
+          <div className="flex gap-2 text-gray-700 mt-10 flex-col">
+            {/* User name */}
+            {/* Buttons */}
+            <button
+              onClick={handleOrdersButtonClick}
+              className="hover:font-bold text-sm"
+            >
+              Account
+            </button>
+            <button
+              onClick={handleOrdersButtonClick}
+              className="hover:font-bold text-sm"
+            >
+              Orders
+            </button>
+            <button className="hover:font-bold text-sm">Payments</button>
           </div>
         </div>
-        <div className="flex gap-2 p-5 bg-gray-50 h-auto flex-col w-8/12">
-          <div className="flex justify-between">
-            <h1>Your Detail</h1>
-            <FiEdit size={20} color="gray" />
-          </div>
-          <div className="flex p-2 text-gray-700 gap-5 bg-white">
-            <h1>Name:</h1>
-            <h1>{userInfo.name}</h1>
-          </div>
-          <div className="flex p-2 text-gray-700 gap-5 bg-white">
-            <h1>Phone No:</h1>
-            <h1>{userInfo.phoneOrEmail}</h1>
-          </div>
-          <div className="flex p-2 text-gray-700 gap-5 bg-white">
-            <h1>Email:</h1>
-            <h1>{userInfo.phoneOrEmail}</h1>
-          </div>
-          <div className="flex p-2 text-gray-700 gap-5 bg-white">
-            <h1>Password:</h1>
-            <h1>{userInfo.password}</h1>
-          </div>
-          <div className="flex justify-between">
-            <h1>Your Address</h1>
-            <FiEdit size={20} color="gray" />
-          </div>
-          <p>
-            {orderData && orderData.address && (
-              <div className="flex p-3 bg-white w-full">
-                <div className="flex flex-col gap-3">
-                  <p className="text-sm">City: {orderData.address.city}</p>
-                  <p className="text-sm">
-                    District: {orderData.address.district}
-                  </p>
-                  <p className="text-sm">
-                    Street Address {orderData.address.streetAddress}
-                  </p>
-                  <p className="text-sm">
-                    Home Address {orderData.address.homeAddress}
-                  </p>
-                  <p className="text-sm">
-                    Location: {orderData.address.location}
-                  </p>
+        {/* User detail and address section */}
+        {showOrderHistory ? (
+          <div className="flex gap-2 pt-10 p-5 bg-gray-50 h-auto flex-col w-8/12">
+            {/* User detail */}
+            <div className="flex flex-col justify-between">
+              <h1 className="text-sm font-semibold text-gray-800">
+                Order History
+              </h1>
+              <div className="flex mt-3 bg-gray-300 py-2 text-xs w-full  justify-between items-center">
+                <div className="flex text-gray-700 justify-between px-5 w-full items-center">
+                  <h1>Date</h1>
+                  <h1>Order ID</h1>
+                  <h1>Items</h1>
+                  <h1>Total</h1>
+                  <h1>Status</h1>
                 </div>
               </div>
-            )}
-          </p>
-        </div>
+              <div className="flex mt-3 py-2 text-xs w-full  justify-between items-center">
+                <div className="flex justify-between px-5 w-full items-center">
+                  <h1>12/04/2024</h1>
+                  <h1>#4567</h1>
+                  <div className="flex gap-2 justify-center items-center">
+                    <div className="w-10 h-10 relative">
+                      <Image
+                        src="/images/AlBaikpic2.JPG"
+                        className="rounded-full w-full h-full"
+                        width={50}
+                        height={50}
+                        alt="items"
+                      />
+                    </div>
+                    <h1>items name</h1>
+                  </div>
+                  <h1>SAR 40.0</h1>
+                  <h1>Pending</h1>
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="flex gap-2 pt-10 p-5 bg-gray-50 h-auto flex-col w-8/12">
+            {/* User detail */}
+            <div className="flex text-sm font-semibold text-gray-700 justify-between">
+              <h1>Your Detail</h1>
+              <FiEdit size={20} color="gray" />
+            </div>
+            {/* Input fields for user details */}
+            <div className="flex w-full gap-5">
+              {/* First Name */}
+              <div className="w-2/4">
+                <p className="text-xs m-1 text-gray-700">First Name</p>
+                <input
+                  type="text"
+                  name="firstName"
+                  value={userAddress?.firstName || ""}
+                  onChange={handleInputChange}
+                  placeholder="Enter your first name"
+                  className="w-full px-3 text-sm mb-2 border bg-transparent focus:outline-none rounded-md h-9"
+                />
+              </div>
+              {/* Last Name */}
+              <div className="w-2/4">
+                <p className="text-xs m-1 text-gray-700">Last Name</p>
+                <input
+                  type="text"
+                  name="lastName"
+                  value={userAddress?.secondName || ""}
+                  onChange={handleInputChange}
+                  placeholder="Enter your last name"
+                  className="w-full px-3 text-sm mb-2 border bg-transparent focus:outline-none rounded-md h-9"
+                />
+              </div>
+            </div>
+            {/* Email and Phone number */}
+            <div className="flex w-full gap-5">
+              {/* Email */}
+              <div className="w-2/4">
+                <p className="text-xs m-1 text-gray-700">Email</p>
+                <input
+                  type="email"
+                  name="email"
+                  value={userEmail}
+                  onChange={handleInputChange}
+                  placeholder="Enter your email"
+                  className="w-full px-3 text-sm mb-2 border bg-transparent focus:outline-none rounded-md h-9"
+                />
+                <button className="bg-orange-400 text-white text-xs rounded-lg font-bold my-3 px-5 py-1.5">
+                  Save
+                </button>
+              </div>
+              {/* Phone number */}
+              <div className="w-2/4">
+                <p className="text-xs m-1 text-gray-700">Phone number</p>
+                <input
+                  type="tel"
+                  name="phone"
+                  value={userAddress?.phoneNo || ""}
+                  onChange={handleInputChange}
+                  placeholder="Enter your phone number"
+                  className="w-full px-3 text-sm mb-2 border bg-transparent focus:outline-none rounded-md h-9"
+                />
+              </div>
+            </div>
+            {/* User address */}
+            <div className="flex justify-between">
+              <h1 className="font-semibold text-sm text-gray-700">
+                Your Address
+              </h1>
+              <FiEdit size={20} color="gray" />
+            </div>
+            {/* Input fields for address */}
+            <div className="flex w-full gap-5">
+              {/* City */}
+              <div className="w-2/4">
+                <p className="text-xs m-1 text-gray-700">City</p>
+                <input
+                  type="text"
+                  name="city"
+                  value={userAddress?.city || ""}
+                  onChange={handleInputChange}
+                  placeholder="Enter your city"
+                  className="w-full px-3 text-sm mb-2 border bg-transparent focus:outline-none rounded-md h-9"
+                />
+              </div>
+              {/* District */}
+              <div className="w-2/4">
+                <p className="text-xs m-1 text-gray-700">District</p>
+                <input
+                  type="text"
+                  name="district"
+                  value={userAddress?.district || ""}
+                  onChange={handleInputChange}
+                  placeholder="Enter your district"
+                  className="w-full px-3 text-sm mb-2 border bg-transparent focus:outline-none rounded-md h-9"
+                />
+              </div>
+            </div>
+            {/* Street Address and Home Address */}
+            <div className="flex w-full gap-5">
+              {/* Street Address */}
+              <div className="w-2/4">
+                <p className="text-xs m-1 text-gray-700">Street Address</p>
+                <input
+                  type="text"
+                  name="streetAddress"
+                  value={userAddress?.streetAddress || ""}
+                  onChange={handleInputChange}
+                  placeholder="Enter your street address"
+                  className="w-full px-3 text-sm mb-2 border bg-transparent focus:outline-none rounded-md h-9"
+                />
+              </div>
+              {/* Home Address */}
+              <div className="w-2/4">
+                <p className="text-xs m-1 text-gray-700">Home Address</p>
+                <input
+                  type="text"
+                  name="homeAddress"
+                  value={userAddress?.homeAddress || ""}
+                  onChange={handleInputChange}
+                  placeholder="Enter your home address"
+                  className="w-full px-3 text-sm mb-2 border bg-transparent focus:outline-none rounded-md h-9"
+                />
+              </div>
+            </div>
+            {/* Location */}
+            <div className="flex w-full gap-5">
+              <div className="w-2/4">
+                <p className="text-xs m-1 text-gray-700">Location</p>
+                <input
+                  type="text"
+                  name="location"
+                  value={userAddress?.location || ""}
+                  onChange={handleInputChange}
+                  placeholder="Enter your location"
+                  className="w-full px-3 text-sm mb-2 border bg-transparent focus:outline-none rounded-md h-9"
+                />
+                <button className="bg-orange-400 text-white text-xs rounded-lg font-bold my-3 px-5 py-1.5">
+                  Save
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

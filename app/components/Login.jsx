@@ -109,187 +109,99 @@ export default function Login({ closeLogin, isLogin, showSignUp }) {
 
   // Function to handle login button click
   const handleLogin = () => {
-    const storedUserData = JSON.parse(localStorage.getItem("userData"));
+    const storedUsers = JSON.parse(localStorage.getItem("users")) || [];
+    const { phoneOrEmail, password } = userData;
 
-    if (storedUserData) {
-      if (
-        userData.password === storedUserData.password &&
-        userData.phoneOrEmail === storedUserData.phoneOrEmail
-      ) {
-        // User is signed up, perform the login action
-        console.log("User is signed up!");
+    // Find the user with the entered phoneOrEmail
+    const userIndex = storedUsers.findIndex(
+      (user) => user.phoneOrEmail === phoneOrEmail
+    );
 
-        // Save the user data and login status in local storage
-        localStorage.setItem(
-          "userAuth",
-          JSON.stringify({
-            isLoggedIn: true,
-            currentUser: storedUserData,
-          })
-        );
-
-        // Perform your login logic here
-        isLogin(true);
-      } else {
-        // User is not signed up
-        console.log("User is not signed up!");
-        setShowError(true);
-      }
-    } else {
-      // User is not signed up
-      console.log("User is not signed up!");
+    if (userIndex === -1) {
+      // User not found
+      console.log("User not found!");
       setShowError(true);
+      return;
     }
+
+    const user = storedUsers[userIndex];
+
+    if (user.password !== password) {
+      // Incorrect password
+      console.log("Incorrect password!");
+      setShowError(true);
+      return;
+    }
+
+    // Update the user's status to "loggedIn: true" and add additional data
+    storedUsers[userIndex].status = { isLoggedIn: true };
+
+    // Save the updated user data in local storage
+    localStorage.setItem("users", JSON.stringify(storedUsers));
+
+    // User found and password is correct
+    console.log("Login successful!");
+
+    // Save the user data and login status in local storage
+    localStorage.setItem(
+      "userAuth",
+      JSON.stringify({
+        isLoggedIn: true,
+        currentUser: user,
+      })
+    );
+
+    // Perform your login logic here
+    isLogin(true);
   };
 
   return (
-    <div className="fixed inset-20 right-80 left-80 flex items-center flex-col shadow-[0px_2px_5px_#bab6b5] rounded-xl bg-white">
-      <IoClose
-        onClick={closeLogin}
-        className="size-7 cursor-pointer text-blue-900 absolute right-2 top-2 z-50"
-      />
-      <h1 className="mt-8 mb-3 font-bold text-xl text-blue-900">Login</h1>
-
-      <div className="w-8/12 flex flex-col justify-center items-center">
-        {usingEmail && (
-          <div className="flex flex-col justify-center items-center w-full">
-            <div className="w-full">
-              <p className="text-sm m-1 font-bold text-blue-900">
-                Phone or Email
-              </p>
-              <input
-                type="text"
-                name="phoneOrEmail"
-                value={userData.phoneOrEmail}
-                onChange={handleInputChange}
-                placeholder="Enter your phone or email"
-                className="w-full px-3 text-sm mb-2 border shadow-[0px_1px_3px_#bab6b5] bg-transparent focus:outline-none focus:ring-blue-900 focus:ring-1 rounded-md h-9"
-              />
-            </div>
-            <div className="w-full">
-              <p className="text-sm m-1 font-bold text-blue-900">Password</p>
-              <input
-                type="password"
-                name="password"
-                value={userData.password}
-                onChange={handleInputChange}
-                placeholder="Enter your password"
-                className="w-full px-3 text-sm h-9 mb-2 border shadow-[0px_1px_3px_#bab6b5] bg-transparent focus:outline-none focus:ring-blue-900 focus:ring-1 rounded-md"
-              />
-            </div>
-            {showError && (
-              <p className="text-red-500 text-sm">User is not signed up! </p>
-            )}
-            <button
-              onClick={handleLogin}
-              className="flex self-center mt-5 bg-blue-900 ease-in-out duration-300 hover:bg-orange-400 active:bg-blue-800 justify-center rounded-full items-center hover:w-3/4 w-8/12 h-9"
-            >
-              <p className="flex text-sm text-white">Login</p>
-            </button>
-            <p className="text-blue-900 text-sm my-3">
-              Are you already registered?
-            </p>
-            <button className="flex self-center shadow-[0px_1px_3px_#bab6b5] ease-in-out duration-300 border-2 active:border-blue-800 border-orange-400 justify-center rounded-full items-center hover:w-3/4 w-8/12 h-9">
-              <p onClick={showSignUp} className="flex text-sm text-blue-900">
-                Sign up
-              </p>
-            </button>
-          </div>
+    <div className="w-2/4 flex items-center flex-col rounded-lg border">
+      <h1 className="mt-5 mb-3 ml-10 self-start font-semibold text-gray-700">
+        Login
+      </h1>
+      <div className="flex px-16 flex-col justify-center items-center w-full">
+        <div className="w-full">
+          <p className="text-xs m-1 font-semibold text-gray-600">
+            Phone or Email
+          </p>
+          <input
+            type="text"
+            name="phoneOrEmail"
+            value={userData.phoneOrEmail}
+            onChange={handleInputChange}
+            placeholder="Enter your phone or email"
+            className="w-full px-3 text-sm mb-2 border bg-transparent focus:outline-orange-400 rounded-md h-9"
+          />
+        </div>
+        <div className="w-full">
+          <p className="text-xs m-1 font-semibold text-gray-600">Password</p>
+          <input
+            type="password"
+            name="password"
+            value={userData.password}
+            onChange={handleInputChange}
+            placeholder="Enter your password"
+            className="w-full px-3 text-sm mb-2 border bg-transparent focus:outline-orange-400 rounded-md h-9"
+          />
+        </div>
+        {showError && (
+          <p className="text-red-500 text-sm">User is not signed up! </p>
         )}
-        {usingOTP && (
-          <div className="flex justify-center items-center w-full">
-            <Toaster toastOptions={{ duration: 4000 }} />
-            <div id="recaptcha-container"></div>
-            {user ? (
-              <h2 className="text-center text-white font-medium text-2xl">
-                👍Login Success
-              </h2>
-            ) : (
-              <div className="w-80 flex justify-center items-center flex-col gap-4 rounded-lg p-4">
-                {showOTP ? (
-                  <>
-                    <div className="bg-white text-orange-400 w-fit mx-auto p-4 rounded-full">
-                      <BsFillShieldLockFill size={30} />
-                    </div>
-                    <label
-                      htmlFor="otp"
-                      className="font-bold text-xl text-blue-900 text-center"
-                    >
-                      Enter your OTP
-                    </label>
-                    <OTPInput
-                      inputStyle={{ width: 30, height: 30 }}
-                      value={otp}
-                      onChange={setOtp}
-                      numInputs={6}
-                      renderSeparator={<span>-</span>}
-                      renderInput={(props) => <input {...props} />}
-                    />
-                    {/* <OtpInput
-                      value={otp}
-                      onChange={setOtp}
-                      OTPLength={6}
-                      otpType="number"
-                      disabled={false}
-                      autoFocus
-                      className="opt-container text-blue-900"
-                    ></OtpInput> */}
-                    <button
-                      onClick={onOTPVerify}
-                      className="bg-blue-900 text-white w-full flex gap-1 items-center justify-center py-2.5 rounded"
-                    >
-                      {loading && (
-                        <CgSpinner size={20} className="mt-1 animate-spin" />
-                      )}
-                      <span>Verify OTP</span>
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    <IoIosPhonePortrait className="text-orange-400 size-28" />
-                    <label
-                      htmlFor=""
-                      className="font text-blue-900 text-center"
-                    >
-                      Verify your phone number
-                    </label>
-                    <div className="mx-3">
-                      <PhoneInput country={"sa"} value={ph} onChange={setPh} />
-                    </div>
-                    <button
-                      onClick={onSignup}
-                      className="bg-blue-900 hover:bg-orange-400 active:bg-blue-800 w-full self-center flex gap-1 items-center justify-center py-2 text-white rounded-full"
-                    >
-                      {loading && (
-                        <CgSpinner size={20} className="mt-1 animate-spin" />
-                      )}
-                      <span>Send code via SMS</span>
-                    </button>
-                  </>
-                )}
-              </div>
-            )}
-          </div>
-        )}
-        {!(usingEmail || usingOTP) && (
-          <div className="flex w-full text-white h-52 mt-10 justify-center items-center gap-5">
-            <CiLogin className="text-blue-900 size-40" />
-            <div className="flex flex-col gap-4">
-              <button
-                onClick={() => setUsingEmail(true)}
-                className="flex ease-in-out duration-300 w-56  rounded-full py-2 bg-orange-400 hover:bg-blue-900 active:to-orange-400 justify-center items-center"
-              >
-                Using Email Password
-              </button>
-              <button
-                onClick={() => setUsingOTP(true)}
-                className="flex ease-in-out duration-300 hover:border-orange-400 rounded-full py-1.5 text-blue-900 border-2 border-blue-900 justify-center items-center"
-              >
-                Using Phone OTP
-              </button>
-            </div>
-          </div>
-        )}
+        <button
+          onClick={handleLogin}
+          className="flex self-center mt-5 bg-orange-400 justify-center rounded-full items-center w-full h-9"
+        >
+          <p className="flex text-sm text-white">Login</p>
+        </button>
+        <p className="text-gray-700 text-sm my-3">
+          Are you already registered?
+        </p>
+        <button className="flex self-center shadow-[0px_1px_3px_#bab6b5] border-2 border-orange-400 justify-center rounded-full items-center w-full h-9">
+          <p onClick={showSignUp} className="flex text-sm text-gray-700">
+            Sign up
+          </p>
+        </button>
       </div>
     </div>
   );

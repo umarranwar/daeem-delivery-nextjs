@@ -1,7 +1,6 @@
 "use client";
 import React, { useContext, useEffect } from "react";
 import { getSingleFood } from "../../../Helper";
-import Header from "../../../components/Header";
 import Image from "next/image";
 import { IoClose } from "react-icons/io5";
 import { useState } from "react";
@@ -17,7 +16,7 @@ import { getSingleStore } from "../../../Helper";
 import Product from "../../../components/Product";
 import foodData from "../../../data/foodData.json";
 
-export default function AnotherPage(params) {
+export default function Page(params) {
   let data = params;
   let foodId = parseInt(data.params.food);
   console.log("Params", params);
@@ -33,7 +32,7 @@ export default function AnotherPage(params) {
   const singleFood = getSingleFood(foodId);
   const [quantity, setQuantity] = useState(1);
   const [size, setSize] = useState("Small");
-  const { handleAddToCart } = useContext(Context);
+  const { handleAddToCart, toggleWishlistItem } = useContext(Context);
 
   const updatedSingleFood = {
     id: singleFood.id,
@@ -63,6 +62,26 @@ export default function AnotherPage(params) {
     }
   }, []);
 
+  // const handleHeartClick = (foodID) => {
+  //   console.log("foodId: ", foodID);
+  //   let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+
+  //   const index = wishlist.indexOf(foodID);
+  //   if (index !== -1) {
+  //     wishlist.splice(index, 1);
+  //   } else {
+  //     wishlist.push(foodID);
+  //   }
+
+  //   localStorage.setItem("wishlist", JSON.stringify(wishlist));
+
+  //   console.log("Updated Wishlist:", wishlist);
+  // };
+
+  const handleHeartClick = () => {
+    toggleWishlistItem(updatedSingleFood);
+  };
+
   return (
     <>
       {loading && (
@@ -79,7 +98,6 @@ export default function AnotherPage(params) {
         </div>
       )}
       <div className="flex bg-gradient-to-tl h-auto w-full flex-col items-center">
-        <Header />
         <div className="flex flex-col justify-center items-center my-10 w-full">
           <div className="flex relative justify-center items-center w-8/12">
             <div className="flex absolute left-5 items-center">
@@ -109,26 +127,6 @@ export default function AnotherPage(params) {
             >
               Order Detail
             </h1>
-            {/* <div className="flex justify-center items-center item gap-2">
-            <div className="flex justify-center gap-1 items-center flex-col">
-              <div className="bg-gray-300 font-semibold flex justify-center items-center w-10 h-10 rounded-full">
-                1
-              </div>
-              <h1>Select Food</h1>
-            </div>
-            <div className="w-20 h-1 rounded-full bg-orange-400"></div>
-            <div className="bg-gray-300 font-semibold flex justify-center items-center w-10 h-10 rounded-full">
-              2
-            </div>
-            <div className="w-20 h-1 rounded-full bg-orange-400"></div>
-            <div className="bg-gray-300 font-semibold flex justify-center items-center w-10 h-10 rounded-full">
-              3
-            </div>
-            <div className="w-20 h-1 rounded-full bg-orange-400"></div>
-            <div className="bg-gray-300 font-semibold flex justify-center items-center w-10 h-10 rounded-full">
-              4
-            </div>
-          </div> */}
           </div>
         </div>
         <div className="flex flex-wrap justify-between mx-10 w-full h-auto flex-row">
@@ -204,7 +202,7 @@ export default function AnotherPage(params) {
             <div className="flex w-full justify-between">
               <div>
                 <h1 className="text-3xl font-semibold">{singleFood.name}</h1>
-                <h1 className="font-semibold">by {singleFood.store}</h1>
+                <h1 className="font-semibold">by {singleFood.storeName}</h1>
               </div>
               <p className="text-2xl font-semibold">
                 SAR {singleFood.price.toFixed(2)}
@@ -316,8 +314,11 @@ export default function AnotherPage(params) {
                   Add to Cart
                 </button>
               </Link>
-              <div>
-                <FaRegHeart size={30} className="text-orange-400" />
+              <div onClick={() => handleHeartClick()}>
+                <FaRegHeart
+                  size={30}
+                  className="text-orange-400 hover:cursor-pointer"
+                />
               </div>
             </div>
             <h1 className="text-sm font-semibold">

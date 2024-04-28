@@ -1,5 +1,4 @@
 "use client";
-import Header from "../components/Header";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import Image from "next/image";
@@ -80,7 +79,6 @@ export default function Page({ searchParams }) {
   return (
     <>
       <div className="flex flex-col justify-center items-center">
-        <Header />
         {loading && (
           <div class="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
             <div class="bg-black opacity-50 absolute inset-0"></div>
@@ -261,7 +259,7 @@ export default function Page({ searchParams }) {
                 href={`/Restaurant/${item.storeName}`}
                 onClick={showLoader}
                 key={item.id}
-                className="relative w-80 h-52 hover:border hover:border-orange-400 rounded-xl border cursor-pointer overflow-hidden"
+                className="relative w-80 z-0 h-52 hover:border hover:border-orange-400 rounded-xl border cursor-pointer overflow-hidden"
               >
                 {/* Orange shadow */}
                 <div className="absolute inset-0">
@@ -269,7 +267,7 @@ export default function Page({ searchParams }) {
                 </div>
                 {/* Image */}
 
-                <div className="flex">
+                <div className="flex bg-black">
                   <Image
                     src={item.logo}
                     alt="banner"
@@ -288,9 +286,12 @@ export default function Page({ searchParams }) {
                 </div>
 
                 {/* Heart icon */}
-                <div className="bg-white opacity-90 absolute right-2 top-2 cursor-pointer rounded-full p-1.5">
-                  <BiHeart className="size-6 text-orange-400" />
-                </div>
+                {/* <div
+                  onClick={() => handleHeartClick(item.storeName)}
+                  className="bg-white opacity-90 absolute right-2 top-2 cursor-pointer rounded-full p-1.5"
+                >
+                  <BiHeart className="size-6 hover:text-red-600 text-orange-400" />
+                </div> */}
 
                 {/* Title and description */}
                 <div className="absolute text-white left-3 bottom-2">
