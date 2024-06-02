@@ -4,11 +4,9 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import storeData from "../data/storeData.json";
 
-import { BiHeart } from "react-icons/bi";
 import { FaStar } from "react-icons/fa";
 import { IoSearchCircle } from "react-icons/io5";
 
-import albaik03 from "../../public/images/albaik03.jpg";
 
 export default function Page({ searchParams }) {
   const [loading, setLoading] = useState(false);
@@ -21,6 +19,7 @@ export default function Page({ searchParams }) {
 
   useEffect(() => {
     // Filter nearby stores
+
     const nearby = storeData.filter((store) => {
       const distance = calculateDistance(
         searchParams.lat,
@@ -50,9 +49,6 @@ export default function Page({ searchParams }) {
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     const distance = R * c;
     return distance;
-  };
-  const showLoader = () => {
-    setLoading(true);
   };
 
   // Handle search input change
@@ -92,27 +88,6 @@ export default function Page({ searchParams }) {
             </div>
           </div>
         )}
-        {/* <div
-          style={{
-            backgroundImage: "url('/images/bgRestaurant.jpg')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            width: "100%",
-            height: "300px",
-            position: "relative",
-            borderBottomLeftRadius: 50,
-            borderBottomRightRadius: 50,
-          }}
-        >
-          <h1
-            style={{
-              textShadow: "0px 1px 4px #2a2b2e",
-            }}
-            className="text-5xl w-80 text-center text-white font-bold absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-          >
-            Restaurants
-          </h1>
-        </div> */}
         <div
           style={{
             backgroundImage: "url('/images/bgRestaurant.jpg')",
@@ -127,14 +102,6 @@ export default function Page({ searchParams }) {
           className="flex justify-center items-center "
         >
           <div className="flex flex-col w-full justify-center items-center">
-            {/* <h1
-              style={{
-                textShadow: "0px 1px 4px #2a2b2e",
-              }}
-              className="my-2 font-bold text-white text-4xl self-center"
-            >
-              {nearbyCount} stores near you
-            </h1> */}
             <div className="relative max-sm:mt-4 h-9 mt-4 lg:w-5/12 md:w-8/12 sm:w-9/12 max-sm:w-11/12 w-5/12 flex items-center text-gray-400">
               <input
                 className="px-5 h-9 w-full hover:shadow-[0px_0px_10px_3px_#f28d35] ring-1 hover:ring-orange-400 ring-orange-400 focus:outline-none text-sm py-2 rounded-full fn border-none text-black"
@@ -148,35 +115,7 @@ export default function Page({ searchParams }) {
             </div>
           </div>
         </div>
-        {/* <div className="flex justify-center flex-wrap gap-10 my-10 self-center items-center w-10/12 h-auto">
-          {storeData.map((item) => (
-            <Link
-              onClick={showLoader}
-              key={item.id}
-              href={`/Restaurant/${item.store}`}
-            >
-              <div className="flex rounded-xl flex-col bg-white p-2">
-                <div className="w-32 relative h-32">
-                  <Image
-                    src={item.logo}
-                    width={400}
-                    height={400}
-                    className="w-full h-full"
-                    alt="item-image"
-                  />
-                </div>
-                <h1
-                  style={{
-                    textShadow: "0px 1px 4px #2a2b2e",
-                  }}
-                  className="my-2 font-bold text-white text-2xl self-center"
-                >
-                  {item.store}
-                </h1>
-              </div>
-            </Link>
-          ))}
-        </div> */}
+        
         {/* <div className="flex w-full h-72 bg-orange-400"></div> */}
         <div className="flex p-5 w-full h-auto">
           <div className="flex gap-5 p-3 flex-col w-2/12 ">
@@ -256,7 +195,7 @@ export default function Page({ searchParams }) {
           <div className="flex w-10/12 pb-10 gap-5 flex-wrap justify-center">
             {filteredStores.map((item) => (
               <Link
-                href={`/Restaurant/${item.storeName}`}
+                href={`/Restaurants/${item.storeName}`}
                 onClick={showLoader}
                 key={item.id}
                 className="relative w-80 z-0 h-52 hover:border hover:border-orange-400 rounded-xl border cursor-pointer overflow-hidden"
@@ -285,14 +224,6 @@ export default function Page({ searchParams }) {
                   </h1>
                 </div>
 
-                {/* Heart icon */}
-                {/* <div
-                  onClick={() => handleHeartClick(item.storeName)}
-                  className="bg-white opacity-90 absolute right-2 top-2 cursor-pointer rounded-full p-1.5"
-                >
-                  <BiHeart className="size-6 hover:text-red-600 text-orange-400" />
-                </div> */}
-
                 {/* Title and description */}
                 <div className="absolute text-white left-3 bottom-2">
                   <p
@@ -310,10 +241,6 @@ export default function Page({ searchParams }) {
                   <p className="text-white font-bold text-sm">
                     (2.1 km) delivery SAR 10
                   </p>
-                  {/* <div className="flex items-center mt-1 gap-1">
-                  <IoLocationOutline size={18} className="text-white" />
-                  <p className="text-sm">Location of the Restaurant</p>
-                </div> */}
                 </div>
                 {/* Image overlay */}
                 <Image

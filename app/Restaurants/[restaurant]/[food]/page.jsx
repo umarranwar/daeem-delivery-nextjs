@@ -111,19 +111,19 @@ export default function Page(params) {
                 />
               </div>
               <p
-                style={{
-                  textShadow: "0px 1px 4px #2a2b2e",
-                }}
-                className="font-bold text-white ml-2"
+                // style={{
+                //   textShadow: "0px 1px 4px #2a2b2e",
+                // }}
+                className="font-bold text-gray-800 ml-2"
               >
                 {data.params.restaurant}
               </p>
             </div>
             <h1
-              style={{
-                textShadow: "0px 1px 4px #2a2b2e",
-              }}
-              className="text-2xl text-white mr-1 font-bold"
+              // style={{
+              //   textShadow: "0px 1px 4px #2a2b2e",
+              // }}
+              className="text-2xl text-gray-800 mr-1 font-bold"
             >
               Order Detail
             </h1>

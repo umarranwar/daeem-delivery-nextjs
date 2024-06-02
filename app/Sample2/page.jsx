@@ -1,84 +1,58 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import storeData from "../data/storeData.json"; // Assuming you have imported your JSON data
+import { useState } from 'react';
 
-const LocationComponent = () => {
-  const [latitude, setLatitude] = useState(21.611654); // Set initial latitude
-  const [longitude, setLongitude] = useState(39.1596621); // Set initial longitude
-  const [nearbyStores, setNearbyStores] = useState([]);
-  const [filteredStores, setFilteredStores] = useState([]); // State for filtered stores
-  const [loading, setLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState("");
+export default function Home() {
+  const [name, setName] = useState('');
+  const [location, setLocation] = useState('');
+  const [restaurants, setRestaurants] = useState([]);
 
-  useEffect(() => {
-    // Filter nearby stores
-    const nearby = storeData.filter((store) => {
-      const distance = calculateDistance(
-        latitude,
-        longitude,
-        store.lat,
-        store.lon
-      );
-      return distance <= 50; // Filter stores within 50 kilometers (adjust as needed)
+  const fetchRestaurants = async () => {
+    const response = await fetch('/api/getRestaurants');
+    const data = await response.json();
+    setRestaurants(data);
+  };
+
+  const handleAddRestaurant = async () => {
+    await fetch('/api/addRestaurant', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name,
+        location,
+      }),
     });
-
-    setNearbyStores(nearby);
-    setLoading(false);
-  }, [latitude, longitude]); // Run whenever latitude or longitude changes
-
-  // Function to calculate distance between two points using Haversine formula
-  const calculateDistance = (lat1, lon1, lat2, lon2) => {
-    const R = 6371; // Radius of the Earth in kilometers
-    const dLat = (lat2 - lat1) * (Math.PI / 180);
-    const dLon = (lon2 - lon1) * (Math.PI / 180);
-    const a =
-      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.cos(lat1 * (Math.PI / 180)) *
-        Math.cos(lat2 * (Math.PI / 180)) *
-        Math.sin(dLon / 2) *
-        Math.sin(dLon / 2);
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    const distance = R * c;
-    return distance;
-  };
-
-  // Handle search input change
-  const handleSearchChange = (e) => {
-    setSearchQuery(e.target.value);
-    filterStores(e.target.value);
-  };
-
-  // Function to filter stores based on search query
-  const filterStores = (query) => {
-    const filtered = nearbyStores.filter((store) =>
-      store.storeName.toLowerCase().includes(query.toLowerCase())
-    );
-    setFilteredStores(filtered);
+    setName('');
+    setLocation('');
+    fetchRestaurants(); // Refresh the list after adding a restaurant
   };
 
   return (
     <div>
-      <h1>Nearby Stores</h1>
+      <h1>Add a Restaurant</h1>
       <input
         type="text"
-        placeholder="Search by store name"
-        value={searchQuery}
-        onChange={handleSearchChange}
+        placeholder="Name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
       />
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <ul>
-          {filteredStores.map((store) => (
-            <li key={store.id}>
-              <h2>{store.storeName}</h2>
-              <img src={store.logo} alt={store.store} />
-            </li>
-          ))}
-        </ul>
-      )}
+      <input
+        type="text"
+        placeholder="Location"
+        value={location}
+        onChange={(e) => setLocation(e.target.value)}
+      />
+      <button onClick={handleAddRestaurant}>Add Restaurant</button>
+
+      <h2>Restaurants</h2>
+      <ul>
+        {restaurants.map((restaurant) => (
+          <li key={restaurant.id}>
+            {restaurant.name} - {restaurant.location}
+          </li>
+        ))}
+      </ul>
     </div>
   );
-};
-
-export default LocationComponent;
+}

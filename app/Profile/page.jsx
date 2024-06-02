@@ -1,5 +1,4 @@
 "use client";
-import Header from "@/components/Header";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { CiUser } from "react-icons/ci";
@@ -65,15 +64,13 @@ export default function Page() {
   };
 
   return (
-    <div className="flex flex-col items-center">
-      <div className="flex mt-10 w-9/12 justify-center">
+    <div className="flex bg-orange-50 flex-col items-center">
+      <div className="flex my-10 w-10/12 justify-center">
         {/* Profile section */}
-        <div className="flex items-center  p-4 border-1 bg-gray-50 flex-col w-56">
+        <div className="flex items-center  p-4 border-1 bg-white flex-col w-56">
           {/* Profile details */}
-          <h1 className="mb-4 text-gray-800 font-semibold text-lg">
-            Your Profile
-          </h1>
-          <div className="flex justify-center items-center w-40 h-40 rounded-full bg-gray-200">
+          <h1 className="mb-4 text-gray-800 font-semibold text-lg">Profile</h1>
+          <div className="flex justify-center items-center w-40 h-40 rounded-full bg-gray-100">
             <CiUser size={100} color="gray" />
           </div>
           <div className="flex gap-2 text-gray-700 mt-10 flex-col">
@@ -96,7 +93,7 @@ export default function Page() {
         </div>
         {/* User detail and address section */}
         {showOrderHistory ? (
-          <div className="flex gap-2 pt-10 p-5 bg-gray-50 h-auto flex-col w-8/12">
+          <div className="flex gap-2 pt-10 p-5 bg-white h-auto flex-col w-8/12">
             {/* User detail */}
             <div className="flex flex-col justify-between">
               <h1 className="text-sm font-semibold text-gray-800">
@@ -134,145 +131,220 @@ export default function Page() {
             </div>
           </div>
         ) : (
-          <div className="flex gap-2 pt-10 p-5 bg-gray-50 h-auto flex-col w-8/12">
+          <div className="flex gap-2 pt-10 p-5 bg-white h-auto flex-col w-8/12">
             {/* User detail */}
             <div className="flex text-sm font-semibold text-gray-700 justify-between">
               <h1>Your Detail</h1>
               <FiEdit size={20} color="gray" />
             </div>
             {/* Input fields for user details */}
-            <div className="flex w-full gap-5">
-              {/* First Name */}
-              <div className="w-2/4">
-                <p className="text-xs m-1 text-gray-700">First Name</p>
-                <input
-                  type="text"
-                  name="firstName"
-                  value={userAddress?.firstName || ""}
-                  onChange={handleInputChange}
-                  placeholder="Enter your first name"
-                  className="w-full px-3 text-sm mb-2 border bg-transparent focus:outline-none rounded-md h-9"
-                />
+            <div className="p-3 rounded-lg border">
+              <div className="flex w-full gap-5">
+                {/* First Name */}
+                <div className="w-2/4">
+                  <p className="text-xs m-1 text-gray-700">First Name</p>
+                  <input
+                    type="text"
+                    name="firstName"
+                    value={userAddress?.firstName || ""}
+                    onChange={handleInputChange}
+                    placeholder="Enter your first name"
+                    className="w-full px-3 text-sm mb-2 border bg-transparent focus:outline-none rounded-md h-9"
+                  />
+                </div>
+                {/* Last Name */}
+                <div className="w-2/4">
+                  <p className="text-xs m-1 text-gray-700">Last Name</p>
+                  <input
+                    type="text"
+                    name="lastName"
+                    value={userAddress?.secondName || ""}
+                    onChange={handleInputChange}
+                    placeholder="Enter your last name"
+                    className="w-full px-3 text-sm mb-2 border bg-transparent focus:outline-none rounded-md h-9"
+                  />
+                </div>
               </div>
-              {/* Last Name */}
-              <div className="w-2/4">
-                <p className="text-xs m-1 text-gray-700">Last Name</p>
-                <input
-                  type="text"
-                  name="lastName"
-                  value={userAddress?.secondName || ""}
-                  onChange={handleInputChange}
-                  placeholder="Enter your last name"
-                  className="w-full px-3 text-sm mb-2 border bg-transparent focus:outline-none rounded-md h-9"
-                />
+              <div className="flex w-full gap-5">
+                {/* First Name */}
+                <div className="w-2/4">
+                  <p className="text-xs m-1 text-gray-700">Username</p>
+                  <input
+                    type="text"
+                    name="firstName"
+                    value={userAddress?.username || ""}
+                    onChange={handleInputChange}
+                    placeholder="Enter your first name"
+                    className="w-full px-3 text-sm mb-2 border bg-transparent focus:outline-none rounded-md h-9"
+                  />
+                </div>
+                <div className="w-2/4">
+                  <p className="text-xs m-1 text-gray-700">Email</p>
+                  <input
+                    type="email"
+                    name="email"
+                    value={userEmail}
+                    onChange={handleInputChange}
+                    placeholder="Enter your email"
+                    className="w-full px-3 text-sm mb-2 border bg-transparent focus:outline-none rounded-md h-9"
+                  />
+                </div>
               </div>
-            </div>
-            {/* Email and Phone number */}
-            <div className="flex w-full gap-5">
-              {/* Email */}
-              <div className="w-2/4">
-                <p className="text-xs m-1 text-gray-700">Email</p>
-                <input
-                  type="email"
-                  name="email"
-                  value={userEmail}
-                  onChange={handleInputChange}
-                  placeholder="Enter your email"
-                  className="w-full px-3 text-sm mb-2 border bg-transparent focus:outline-none rounded-md h-9"
-                />
+              {/* Email and Phone number */}
+              <div className="flex w-full gap-5">
+                {/* Email */}
+
+                {/* Phone number */}
+                <div className="w-2/4 ">
+                  <p className="text-xs m-1 text-gray-700">Phone number</p>
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={userAddress?.phoneNo || ""}
+                    onChange={handleInputChange}
+                    placeholder="Enter your phone number"
+                    className="w-full px-3 text-sm mb-2 border bg-transparent focus:outline-none rounded-md h-9"
+                  />
+                </div>
+                <div className="w-2/4 "></div>
+              </div>
+              <div>
                 <button className="bg-orange-400 text-white text-xs rounded-lg font-bold my-3 px-5 py-1.5">
-                  Save
+                  Save Changes
                 </button>
-              </div>
-              {/* Phone number */}
-              <div className="w-2/4">
-                <p className="text-xs m-1 text-gray-700">Phone number</p>
-                <input
-                  type="tel"
-                  name="phone"
-                  value={userAddress?.phoneNo || ""}
-                  onChange={handleInputChange}
-                  placeholder="Enter your phone number"
-                  className="w-full px-3 text-sm mb-2 border bg-transparent focus:outline-none rounded-md h-9"
-                />
               </div>
             </div>
             {/* User address */}
-            <div className="flex justify-between">
+            <div className="flex mt-5 justify-between">
+              <h1 className="font-semibold text-sm text-gray-700">
+                Change Password
+              </h1>
+              <FiEdit size={20} color="gray" />
+            </div>
+            <div className="p-3 rounded-lg border">
+              {/* Input fields for address */}
+              <div className="flex w-full gap-5">
+                {/* City */}
+                <div className="w-2/4">
+                  <p className="text-xs m-1 text-gray-700">Current Password</p>
+                  <input
+                    type="text"
+                    name="city"
+                    value={userAddress?.city || ""}
+                    onChange={handleInputChange}
+                    placeholder="Enter your current password"
+                    className="w-full px-3 text-sm mb-2 border bg-transparent focus:outline-none rounded-md h-9"
+                  />
+                </div>
+                {/* District */}
+                <div className="w-2/4">
+                  <p className="text-xs m-1 text-gray-700">New Password</p>
+                  <input
+                    type="text"
+                    name="district"
+                    value={userAddress?.password || ""}
+                    onChange={handleInputChange}
+                    placeholder="Enter your new password"
+                    className="w-full px-3 text-sm mb-2 border bg-transparent focus:outline-none rounded-md h-9"
+                  />
+                </div>
+              </div>
+              <div className="flex gap-5">
+                <div className="w-2/4 ">
+                  <p className="text-xs m-1 text-gray-700">Confirm Password</p>
+                  <input
+                    type="text"
+                    name="district"
+                    value={userAddress?.password || ""}
+                    onChange={handleInputChange}
+                    placeholder="Enter your confirm password"
+                    className="w-full px-3 text-sm mb-2 border bg-transparent focus:outline-none rounded-md h-9"
+                  />
+                </div>
+                <div className="w-2/4"></div>
+              </div>
+              <button className="bg-orange-400 text-white text-xs rounded-lg font-bold my-3 px-5 py-1.5">
+                Save Changes
+              </button>
+            </div>
+
+            <div className="flex mt-5 justify-between">
               <h1 className="font-semibold text-sm text-gray-700">
                 Your Address
               </h1>
               <FiEdit size={20} color="gray" />
             </div>
-            {/* Input fields for address */}
-            <div className="flex w-full gap-5">
-              {/* City */}
-              <div className="w-2/4">
-                <p className="text-xs m-1 text-gray-700">City</p>
-                <input
-                  type="text"
-                  name="city"
-                  value={userAddress?.city || ""}
-                  onChange={handleInputChange}
-                  placeholder="Enter your city"
-                  className="w-full px-3 text-sm mb-2 border bg-transparent focus:outline-none rounded-md h-9"
-                />
+            <div className="p-3 border rounded-lg">
+              {/* Input fields for address */}
+              <div className="flex w-full gap-5">
+                {/* City */}
+                <div className="w-2/4">
+                  <p className="text-xs m-1 text-gray-700">City</p>
+                  <input
+                    type="text"
+                    name="city"
+                    value={userAddress?.city || ""}
+                    onChange={handleInputChange}
+                    placeholder="Enter your city"
+                    className="w-full px-3 text-sm mb-2 border bg-transparent focus:outline-none rounded-md h-9"
+                  />
+                </div>
+                {/* District */}
+                <div className="w-2/4">
+                  <p className="text-xs m-1 text-gray-700">District</p>
+                  <input
+                    type="text"
+                    name="district"
+                    value={userAddress?.district || ""}
+                    onChange={handleInputChange}
+                    placeholder="Enter your district"
+                    className="w-full px-3 text-sm mb-2 border bg-transparent focus:outline-none rounded-md h-9"
+                  />
+                </div>
               </div>
-              {/* District */}
-              <div className="w-2/4">
-                <p className="text-xs m-1 text-gray-700">District</p>
-                <input
-                  type="text"
-                  name="district"
-                  value={userAddress?.district || ""}
-                  onChange={handleInputChange}
-                  placeholder="Enter your district"
-                  className="w-full px-3 text-sm mb-2 border bg-transparent focus:outline-none rounded-md h-9"
-                />
+              {/* Street Address and Home Address */}
+              <div className="flex w-full gap-5">
+                {/* Street Address */}
+                <div className="w-2/4">
+                  <p className="text-xs m-1 text-gray-700">Street Address</p>
+                  <input
+                    type="text"
+                    name="streetAddress"
+                    value={userAddress?.streetAddress || ""}
+                    onChange={handleInputChange}
+                    placeholder="Enter your street address"
+                    className="w-full px-3 text-sm mb-2 border bg-transparent focus:outline-none rounded-md h-9"
+                  />
+                </div>
+                {/* Home Address */}
+                <div className="w-2/4">
+                  <p className="text-xs m-1 text-gray-700">Home Address</p>
+                  <input
+                    type="text"
+                    name="homeAddress"
+                    value={userAddress?.homeAddress || ""}
+                    onChange={handleInputChange}
+                    placeholder="Enter your home address"
+                    className="w-full px-3 text-sm mb-2 border bg-transparent focus:outline-none rounded-md h-9"
+                  />
+                </div>
               </div>
-            </div>
-            {/* Street Address and Home Address */}
-            <div className="flex w-full gap-5">
-              {/* Street Address */}
-              <div className="w-2/4">
-                <p className="text-xs m-1 text-gray-700">Street Address</p>
-                <input
-                  type="text"
-                  name="streetAddress"
-                  value={userAddress?.streetAddress || ""}
-                  onChange={handleInputChange}
-                  placeholder="Enter your street address"
-                  className="w-full px-3 text-sm mb-2 border bg-transparent focus:outline-none rounded-md h-9"
-                />
-              </div>
-              {/* Home Address */}
-              <div className="w-2/4">
-                <p className="text-xs m-1 text-gray-700">Home Address</p>
-                <input
-                  type="text"
-                  name="homeAddress"
-                  value={userAddress?.homeAddress || ""}
-                  onChange={handleInputChange}
-                  placeholder="Enter your home address"
-                  className="w-full px-3 text-sm mb-2 border bg-transparent focus:outline-none rounded-md h-9"
-                />
-              </div>
-            </div>
-            {/* Location */}
-            <div className="flex w-full gap-5">
-              <div className="w-2/4">
-                <p className="text-xs m-1 text-gray-700">Location</p>
-                <input
-                  type="text"
-                  name="location"
-                  value={userAddress?.location || ""}
-                  onChange={handleInputChange}
-                  placeholder="Enter your location"
-                  className="w-full px-3 text-sm mb-2 border bg-transparent focus:outline-none rounded-md h-9"
-                />
-                <button className="bg-orange-400 text-white text-xs rounded-lg font-bold my-3 px-5 py-1.5">
-                  Save
-                </button>
+              {/* Location */}
+              <div className="flex w-full gap-5">
+                <div className="w-2/4">
+                  <p className="text-xs m-1 text-gray-700">Location</p>
+                  <input
+                    type="text"
+                    name="location"
+                    value={userAddress?.location || ""}
+                    onChange={handleInputChange}
+                    placeholder="Enter your location"
+                    className="w-full px-3 text-sm mb-2 border bg-transparent focus:outline-none rounded-md h-9"
+                  />
+                  <button className="bg-orange-400 text-white text-xs rounded-lg font-bold my-3 px-5 py-1.5">
+                    Save Changes
+                  </button>
+                </div>
               </div>
             </div>
           </div>

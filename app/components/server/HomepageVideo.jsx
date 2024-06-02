@@ -2,7 +2,7 @@ import { FaMapMarkerAlt } from "react-icons/fa";
 import { IoSearchCircle } from "react-icons/io5";
 import Search from "../client/Search";
 
-const HeroSection = () => {
+export default function HomepageVideo() {
   return (
     <div className="flex w-full flex-col justify-center">
       <video
@@ -30,6 +30,4 @@ const HeroSection = () => {
       </div>
     </div>
   );
-};
-
-export default HeroSection;
+}

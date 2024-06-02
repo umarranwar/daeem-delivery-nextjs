@@ -6,7 +6,6 @@ import { CiCircleMinus } from "react-icons/ci";
 import { CgSpinner } from "react-icons/cg";
 import Link from "next/link";
 import { Context } from "@/components/Context";
-import Header from "@/components/server/Header";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
 
@@ -42,7 +41,6 @@ export default function Page() {
 
   return (
     <div className="flex flex-col items-center">
-      <Header />
       {/* <div className="flex z-40  flex-col justify-center items-center my-5 w-full">
         <div className="flex relative justify-center items-center p-4 w-8/12">
           <h1

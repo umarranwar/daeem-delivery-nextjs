@@ -1,5 +1,4 @@
 "use client";
-import Header from "@/components/server/Header";
 import Login from "@/components/Login";
 import SignUp from "@/components/SignUp";
 import Image from "next/image";
@@ -197,7 +196,6 @@ export default function Checkout() {
 
   return (
     <>
-      <Header />
       <div className="flex flex-col justify-center items-center my-5 w-full">
         <div className="flex relative justify-center items-center p-4 w-8/12">
           <div className="flex absolute left-5 items-center">

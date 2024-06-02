@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import React, { useRef, useState } from "react";
+import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 const variants = {
   initial: {
@@ -32,8 +33,11 @@ const variants2 = {
 };
 
 function Services() {
+  const ref = useRef();
+  const isInView = useInView(ref, { once: true }, { margin: "-100px" });
   return (
     <motion.div
+      ref={ref}
       initial="initial"
       whileInView="animate"
       viewport={{ once: true }}
@@ -137,6 +141,7 @@ function Services() {
       </motion.div>
       <div className="flex my-24 w-full gap-10 justify-center">
         <motion.div
+          ref={ref}
           variants={variants}
           initial="initial"
           whileInView="animate"
@@ -163,6 +168,7 @@ function Services() {
           </p>
         </motion.div>
         <motion.div
+          ref={ref}
           variants={variants2}
           initial="initial"
           whileInView="animate"
@@ -238,7 +244,7 @@ function Services() {
         initial="initial"
         whileInView="animate"
         viewport={{ once: true }}
-        className="flex my-20 justify-center w-full gap-10"
+        className="flex  my-20 justify-center w-full gap-10"
       >
         <motion.div
           variants={variants}
@@ -273,7 +279,7 @@ function Services() {
         initial="initial"
         whileInView="animate"
         viewport={{ once: true }}
-        className="flex mb-20 mt-20 justify-center w-full gap-10"
+        className="flex mt-20  justify-center w-full gap-10"
       >
         <div className="w-4/12 relative h-72">
           <Image

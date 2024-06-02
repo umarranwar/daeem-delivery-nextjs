@@ -1,5 +1,4 @@
 "use client";
-import Header from "@/components/Header";
 import React, { useContext, useEffect, useState } from "react";
 import Image from "next/image";
 import { Context } from "@/components/Context";
@@ -57,7 +56,6 @@ export default function Page() {
 
   return (
     <div className="bg-orange-100">
-      <Header />
       <div className="flex justify-center bg-orange-50 items-center w-full h-auto">
         <div className="flex w-9/12 p-10 h-auto justify-center items-center">
           <div className="flex w-2/4 flex-col px-10">

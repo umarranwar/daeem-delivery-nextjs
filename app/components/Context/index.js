@@ -7,6 +7,31 @@ function GlobalState({ children }) {
   const [cartItems, setCartItems] = useState([]);
   const [wishlistItems, setWishlistItems] = useState([]);
 
+  const [nearbyStores, setNearbyStores] = useState([]);
+  const [nearbyCount, setNearbyCount] = useState(0); // Counter for nearby stores
+  const [filteredStores, setFilteredStores] = useState([]); // State for filtered stores
+
+  const [searchQuery, setSearchQuery] = useState("");
+
+  // Handle search input change
+  function handleSearchChange(e) {
+    setSearchQuery(e.target.value);
+    setFilteredStores(e.target.value);
+  }
+
+  function handleSetFilteredStores(data) {
+    setFilteredStores(data);
+  }
+  function handleSetNearbyStores(data) {
+    setNearbyStores(data);
+  }
+  function handleFilterStores(query) {
+    const filtered = nearbyStores.filter((store) =>
+      store.storeName.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredStores(filtered);
+  }
+
   function handleAddToCart(getCurrentItem) {
     let copyCartItems = [...cartItems];
     const indexOfCurrentItem = copyCartItems.findIndex(
@@ -124,6 +149,13 @@ function GlobalState({ children }) {
         wishlistItems,
         toggleWishlistItem,
         removeFromWishlist,
+        handleSetFilteredStores,
+        filteredStores,
+        handleSetNearbyStores,
+        nearbyStores,
+        handleFilterStores,
+        handleSearchChange,
+        searchQuery,
       }}
     >
       {children}

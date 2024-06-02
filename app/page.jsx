@@ -1,15 +1,13 @@
 import React from "react";
-import HeroSection from "./components/server/HeroSection";
-import Section from "./components/Section";
-import Services from "./components/Services";
-import Footer from "./components/Footer";
+import HomepageVideo from "./components/server/HomepageVideo";
+import HomepageFeatured from "./components/HomepageFeatured";
+import Services from "./components/server/Services";
 export default function page() {
   return (
     <div>
-      <HeroSection />
-      <Section />
+      <HomepageVideo />
+      <HomepageFeatured />
       <Services />
-      <Footer />
     </div>
   );
 }

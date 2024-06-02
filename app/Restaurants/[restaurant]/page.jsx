@@ -103,7 +103,7 @@ export default function Restaurants({ params }) {
         <div className="flex justify-center flex-wrap gap-7 w-11/12">
           {filteredFood.map((item) => (
             <Link
-              href={`/Restaurant/${params.restaurant}/${item.id}`}
+              href={`/Restaurants/${params.restaurant}/${item.id}`}
               key={item.id}
               onClick={showLoader}
               className="flex xl:w-5/12 lg:w-5/12 md:w-7/12 sm:w-8/12 max-sm:w-96 rounded-lg h-32 hover:border-orange-400 border shadow-[0px_2px_5px_#bab6b5] p-2 bg-white items-center justify-between"

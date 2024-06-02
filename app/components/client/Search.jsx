@@ -1,8 +1,12 @@
 "use client";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { useLoadScript } from "@react-google-maps/api";
+
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { IoSearchCircle } from "react-icons/io5";
+
+const libraries = ["places"];
 
 export default function Search() {
   const [latitude, setLatitude] = useState(null);
@@ -10,6 +14,38 @@ export default function Search() {
   const [address, setAddress] = useState("");
   const [loading, setLoading] = useState(true);
   const apiKey = "AIzaSyAvbj_IHZhiislshQVOq-YVXLNb0T7LgOQ";
+
+  const [selectedPlace, setSelectedPlace] = useState(null);
+  const autocompleteRef = useRef(null);
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: "AIzaSyAvbj_IHZhiislshQVOq-YVXLNb0T7LgOQ",
+    libraries,
+  });
+
+  useEffect(() => {
+    if (isLoaded) {
+      const autocomplete = new window.google.maps.places.Autocomplete(
+        autocompleteRef.current
+      );
+      autocomplete.addListener("place_changed", () => {
+        const place = autocomplete.getPlace();
+        setSelectedPlace(place); // Set the selected place
+        handleSelect(place); // Callback function to handle selected place
+      });
+    }
+  }, [isLoaded]);
+
+  const handleSelect = (place) => {
+    console.log("Selected place:", place);
+
+    if (place.geometry && place.geometry.location) {
+      const lat = place.geometry.location.lat();
+      const lng = place.geometry.location.lng();
+
+      console.log("Latitude:", lat);
+      console.log("Longitude:", lng);
+    }
+  };
 
   const currentAddress = () => {
     if (navigator.geolocation) {
@@ -61,15 +97,21 @@ export default function Search() {
       <input
         className="px-9 h-9 w-full hover:shadow-[0px_0px_10px_3px_#f28d35] focus:ring-1 focus:ring-offset-5 focus:ring-orange-500 focus:outline-none text-sm py-2 rounded-full fn border-none text-black"
         type="text"
+        ref={autocompleteRef}
         name="search"
+        onChange={(e) => setAddress(e.target.value)}
+        autoComplete="off"
         value={address}
         placeholder="Find your delivery location (landmark, street, or city)"
       />
       <Link
         className="h-full"
         href={{
-          pathname: "/Restaurant",
-          query: { lat: latitude, lon: longitude },
+          pathname: "/Restaurants",
+          query: {
+            lat: latitude || selectedPlace?.geometry.location.lat(),
+            lon: longitude || selectedPlace?.geometry.location.lng(),
+          },
         }}
       >
         <IoSearchCircle className="w-9 h-9 right-0 hover:scale-105 duration-500 hover:fill-orange-600 hover:cursor-pointer fill-blue-900 absolute cursor-default" />

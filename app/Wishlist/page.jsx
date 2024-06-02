@@ -1,6 +1,5 @@
 "use client";
 import { useState, useEffect, useContext } from "react";
-import Header from "@/components/server/Header";
 import Image from "next/image";
 import { FaHeart } from "react-icons/fa";
 import { getSingleFood } from "@/Helper";
@@ -60,7 +59,6 @@ export default function Page() {
 
   return (
     <div>
-      <Header />
       <div className="flex w-full h-auto flex-col justify-center items-center p-10">
         {wishlistItems.length === 0 ? (
           <div className="flex justify-center items-center">

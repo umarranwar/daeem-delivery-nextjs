@@ -43,9 +43,7 @@ function Services() {
         variants={variants}
         className="flex flex-col w-1/2 gap-5 justify-center items-center"
       >
-        <h1 className="font-extrabold text-gray-800 text-4xl">
-          Our App Features
-        </h1>
+        <h1 className="font-bold text-gray-800 text-4xl">Our App Features</h1>
         <p className="text-center">
           Our app features a user-friendly interface for seamless navigation and
           a variety of customization options to tailor the experience to your
@@ -141,23 +139,21 @@ function Services() {
           initial="initial"
           whileInView="animate"
           viewport={{ once: true }}
-          className="flex w-5/12 gap-5 p-5 justify-center bg-orange-400 rounded-2xl flex-col"
+          className="flex w-5/12 gap-5 p-5 bg-orange-300 justify-center rounded-2xl flex-col"
         >
-          <h1 className="text-white font-extrabold text-4xl">How it Works</h1>
-          <h1 className="text-lg text-white font-bold">01 Choose Your Meals</h1>
-          <p className="text-white">
+          <h1 className="text-white font-light text-4xl">How it Works</h1>
+          <h1 className="text-lg text-white">01 Choose Your Meals</h1>
+          <p className="text-white font-light">
             Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
             nonumy
           </p>
-          <h1 className="text-lg text-white font-bold">02 Pay For The Order</h1>
-          <p className="text-white ">
+          <h1 className="text-lg text-white">02 Pay For The Order</h1>
+          <p className="text-white font-light">
             Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
             nonumy
           </p>
-          <h1 className="text-lg text-white  font-bold">
-            03 Wait For Delivery
-          </h1>
-          <p className="text-white">
+          <h1 className="text-lg text-white">03 Wait For Delivery</h1>
+          <p className="text-white font-light">
             Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
             nonumy
           </p>
@@ -238,7 +234,7 @@ function Services() {
         initial="initial"
         whileInView="animate"
         viewport={{ once: true }}
-        className="flex my-20 justify-center w-full gap-10"
+        className="flex  my-20 justify-center w-full gap-10"
       >
         <motion.div
           variants={variants}
@@ -273,7 +269,7 @@ function Services() {
         initial="initial"
         whileInView="animate"
         viewport={{ once: true }}
-        className="flex mb-20 mt-20 justify-center w-full gap-10"
+        className="flex mb-20 mt-20  justify-center w-full gap-10"
       >
         <div className="w-4/12 relative h-72">
           <Image
@@ -290,7 +286,10 @@ function Services() {
               delivery, so you can focus on the food.
             </p>
             <Link href="/Registration">
-              <button className=" w-24 hover:bg-orange-400 hover:text-white font-semibold bg-white p-2 rounded-lg text-xs">
+              <button
+                className="w-24 hover:bg-orange-400 hover:text-white font-semibold bg-white p-2 rounded-lg text-xs"
+                style={{ backdropFilter: "blur(4px)" }} // Added backdrop filter for blur effect
+              >
                 Join Now
               </button>
             </Link>

@@ -10,7 +10,7 @@ export default function Page() {
     const totalPriceString = searchParams.get("totalPrice");
 
     // Convert totalPriceString to a number and add 10
-    const totalPrice = (parseInt(totalPriceString, 10) + 10) * 100;
+    const totalPrice = (parseInt(10, 10) + 10) * 100;
     console.log("totalPrice", totalPrice);
     // Convert totalPrice to a string with double quotes around it
     setTotalPrice(totalPrice);
@@ -26,7 +26,7 @@ export default function Page() {
       command: "AUTHORIZATION",
       access_code: "pFhhsBpJOFReL6eF2BzU",
       merchant_identifier: "b62d1bca",
-      merchant_reference: "Teste05",
+      merchant_reference: "Teste023",
       amount: totalPrice,
       currency: "SAR",
       language: "en",
@@ -64,7 +64,7 @@ export default function Page() {
         <input type="hidden" name="command" value="AUTHORIZATION" />
         <input type="hidden" name="access_code" value="pFhhsBpJOFReL6eF2BzU" />
         <input type="hidden" name="merchant_identifier" value="b62d1bca" />
-        <input type="hidden" name="merchant_reference" value="Teste05" />
+        <input type="hidden" name="merchant_reference" value="Teste023" />
         <input type="hidden" name="amount" value={totalPrice} />
         <input type="hidden" name="currency" value="SAR" />
         <input type="hidden" name="language" value="en" />
